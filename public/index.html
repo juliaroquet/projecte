@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="es">
@@ -63,4 +64,72 @@
     </div>
 </div>
 </body>
+=======
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>LogIn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#buttonLogIn').click(function() {
+
+            });
+        });
+        $(document).ready(function(){
+            $('#buttonSave).click(function() {
+                $.post("",
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1>En busca dels extraterrestres</h1>
+
+</div>
+<div class="container p-3 my-3 bg-dark text-white">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <p>Nom del usuari: <input type="text" id="userLogIn"></p>
+            <p>Contrasenya: <input type="text" id="contraLogIn"></p>
+            <button id="buttonLogIn" class="btn btn-light" >Log In</button>
+            <p>Si no estas registrat, Registrat! </p>
+            <button type="buttonRegister" class="btn btn-light" data-toggle="modal" data-target="#myModal">Register</button>
+
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Register</h4>
+                            <button type="buttonGuaradr" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <p>Nombre de usuario: <input type="text" id="userRegister"></p>
+                            <p>Contrasenya: <input type="text" id="contraRegister"></p>
+                            <button type="buttonGuardar" class="btn btn-info" data-dismiss="modal">Guardar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+</body>
+>>>>>>> 0023a180be071aef8e797ebefe9683711fdd0f45
 </html>
