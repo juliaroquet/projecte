@@ -13,15 +13,63 @@
     <script>
         $(document).ready(function(){
             $('#buttonLogIn').click(function() {
+                var username = $('#userLogIn').val();
+                var password = $('#passwLogIn').val();
 
-            });
-        });
-        $(document).ready(function(){
-            $('#buttonSave).click(function() {
-                $.post("",
+                var userData = {
+                    username: username,
+                    password: password
+                };
 
-            });
-        });
+                $.ajax({
+                    url: '/user/login',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userData),
+                    success: function(data) {
+
+                        console.log('inici de sessió correcte');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error en el registre:', textStatus, errorThrown);
+                    }
+
+
+
+                })
+            })
+
+            $('#buttonSave').click(function() {
+                var name = $('#userRegister').val();
+                var surname = $('#surnameRegister').val();
+                var username = $('#usernameRegister').val();
+                var password = $('#passwRegister').val();
+
+                var userData = {
+                    name: name,
+                    surname: surname,
+                    username: username,
+                    password: password
+                };
+
+                $.ajax({
+                    url: '/user/register',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userData),
+                    success: function(data) {
+                        // Manejar la respuesta del servidor si es necesario
+                        console.log('Registre correcte');
+                    },
+
+                    //diria que es així per controlar el error però hauria de saltar els típics números no se com es fa
+                    error: function(jqXHR, textStatus, errorThrown) {
+
+                        console.error('Error en el registre:', textStatus, errorThrown);
+                    }
+                });
+            })});
+
     </script>
 </head>
 <body>
@@ -37,7 +85,7 @@
             <p>Contrasenya: <input type="password" id="passwLogIn"></p>
             <button id="buttonLogIn" class="btn btn-light" >LogIn</button>
             <p></p>
-            <p>Encara no estas registrat? Registrat! </p>
+            <p>Encara no estas registrat? Registra't! </p>
             <button type="buttonRegister" class="btn btn-light" data-toggle="modal" data-target="#myModal">Register</button>
 
             <div class="modal fade" id="myModal">

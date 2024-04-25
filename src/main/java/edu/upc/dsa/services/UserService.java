@@ -38,7 +38,7 @@ import java.util.List;
         })
         @Path("/register")
         @Consumes(MediaType.APPLICATION_JSON)
-        public Response Register(User user) {
+        public Response Register(User user) throws UserNameYaExiste {
 
             if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
             try{
