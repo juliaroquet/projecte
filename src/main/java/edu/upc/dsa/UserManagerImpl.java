@@ -31,16 +31,16 @@ public class UserManagerImpl implements UserManager{
 
 
     @Override
-    public User registerUser(String name, String surname, String username, String password) throws UserNameYaExiste {
+    public User registerUser(User user) throws UserNameYaExiste {
         logger.info("Comprovem que no hi ha un nom d'usuari ja existent igual");
-        if(MapUsers.containsKey(username)){
+        User user1 = MapUsers.get(user.getUsername());
+        if(user1 != null){
             logger.error("Aquest username ya s'esta utilitzant");
             throw new UserNameYaExiste();
         }
         logger.info("User registrat");
-        User user = new User(name, surname, username, password);
-        MapUsers.put(username, user);
         listusers.add(user);
+        MapUsers.put(user.getUsername(), user);
         return user;
 
     }
@@ -62,5 +62,10 @@ public class UserManagerImpl implements UserManager{
             throw new UserNotRegisteredException();
         }
 
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return listusers;
     }
 }

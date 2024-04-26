@@ -23,8 +23,12 @@ import java.util.List;
 
         private UserManager um;
 
-        public UserService() {
+        public UserService() throws UserNameYaExiste {
             this.um = UserManagerImpl.getInstance();
+            if (um.getUsers().size()==0){
+                um.registerUser(new User("Laura","Fernandez","lauraa8","12345"));
+                um.registerUser(new User("Anna","Fernandez","annaa11","56789"));
+            }
 
         }
 
@@ -39,12 +43,10 @@ import java.util.List;
         @Path("/register")
         @Consumes(MediaType.APPLICATION_JSON)
         public Response Register(User user) throws UserNameYaExiste {
-
-            if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
+            //if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
             try{
-                this.um.registerUser(user.getName(), user.getSurname(), user.getUsername(), user.getPassword());
+                this.um.registerUser(new User(user.getName(), user.getSurname(), user.getUsername(), user.getPassword()));
                 return Response.status(201).entity(user).build();
-
             }
             catch(UserNameYaExiste e){
                 return Response.status(404).entity(user).build();

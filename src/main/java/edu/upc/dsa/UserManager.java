@@ -5,9 +5,12 @@ import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.User;
 
+import java.util.List;
+
 public interface UserManager {
-    public User registerUser(String name, String surname, String username, String password) throws UserNameYaExiste;
+    public User registerUser(User user) throws UserNameYaExiste;
     public User loginUser(String username, String password) throws PasswordIncorrecteException, UserNotRegisteredException;
+    public List<User> getUsers();
 
 
 }
