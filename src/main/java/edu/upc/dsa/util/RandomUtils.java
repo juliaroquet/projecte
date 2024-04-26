@@ -18,4 +18,10 @@ public class RandomUtils {
 
         return randomString;
     }
+    public static String getIdProduct() {
+        RandomStringGenerator generator = new RandomStringGenerator();
+        String randomString = generator.generateByRegex("\\w+\\d*[0-9]{0,8}");
+
+        return randomString;
+    }
 }

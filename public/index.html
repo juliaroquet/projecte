@@ -35,24 +35,6 @@
                         alert("usuario o contrasenya incorrecte");
                         location.reload();
                     })
-
-
-                /*$.ajax({
-                    url: '/user/login',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userData),
-                    success: function(data) {
-
-                        console.log('inici de sessió correcte');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error en el registre:', textStatus, errorThrown);
-                    }
-
-
-
-                })*/
             })
 
             $('#buttonGuardar').click(function() {
@@ -77,23 +59,6 @@
                         alert("No s'ha pogut registrar :(");
                         location.reload();
                     })
-
-                /*$.ajax({
-                    url: '/user/register',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userData),
-                    success: function(data) {
-
-                        console.log('Registre correcte');
-                    },
-
-                    //diria que es així per controlar el error però hauria de saltar els típics números no se com es fa
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                        console.error('Error en el registre:', textStatus, errorThrown);
-                    }
-                });*/
             })});
 
     </script>

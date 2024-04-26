@@ -5,6 +5,7 @@ import edu.upc.dsa.UserManagerImpl;
 import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
+import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,4 +72,18 @@ import java.util.List;
             }
             return Response.status(404).entity(user).build();
         }
+        /*@GET
+        @ApiOperation(value = "get users", notes = "Show a list of users")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful", response = User.class, responseContainer="List"),
+        })
+        @Path("/getusers")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response getListofUsers() {
+
+            List<User> lu = this.um.getUsers();
+            GenericEntity<List<User>> entity = new GenericEntity<List<User>>(lu) {};
+            return Response.status(201).entity(entity).build()  ;
+
+        }*/
     }
