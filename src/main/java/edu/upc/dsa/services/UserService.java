@@ -5,6 +5,7 @@ import edu.upc.dsa.UserManagerImpl;
 import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
+import edu.upc.dsa.models.Credencials;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import io.swagger.annotations.Api;
@@ -43,7 +44,7 @@ import java.util.List;
         })
         @Path("/register")
         @Consumes(MediaType.APPLICATION_JSON)
-        public Response Register(User user) throws UserNameYaExiste {
+        public Response register(User user) throws UserNameYaExiste {
             //if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
             try{
                 this.um.registerUser(new User(user.getName(), user.getSurname(), user.getUsername(), user.getPassword()));
@@ -64,15 +65,14 @@ import java.util.List;
         })
         @Path("/login")
         @Consumes(MediaType.APPLICATION_JSON)
-        public Response Login(User user) throws PasswordIncorrecteException, UserNotRegisteredException {
-
-            User user1 = this.um.loginUser(user.getUsername(), user.getPassword());
+        public Response login(Credencials credencials) throws PasswordIncorrecteException, UserNotRegisteredException {
+            User user1 = this.um.loginUser(credencials.getUsername(), credencials.getPassword());
             if(user1 != null){
-                return Response.status(201).entity(user).build();
+                return Response.status(201).entity(user1).build();
             }
-            return Response.status(404).entity(user).build();
+            return Response.status(404).entity(user1).build();
         }
-        /*@GET
+        @GET
         @ApiOperation(value = "get users", notes = "Show a list of users")
         @ApiResponses(value = {
                 @ApiResponse(code = 201, message = "Successful", response = User.class, responseContainer="List"),
@@ -85,5 +85,5 @@ import java.util.List;
             GenericEntity<List<User>> entity = new GenericEntity<List<User>>(lu) {};
             return Response.status(201).entity(entity).build()  ;
 
-        }*/
+        }
     }
