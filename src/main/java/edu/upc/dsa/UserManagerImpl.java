@@ -1,8 +1,7 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.exceptions.PasswordIncorrecteException;
-import edu.upc.dsa.exceptions.UserNameYaExiste;
-import edu.upc.dsa.exceptions.UserNotRegisteredException;
+import edu.upc.dsa.exceptions.*;
+import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 
 import java.util.ArrayList;
@@ -13,7 +12,8 @@ import org.apache.log4j.Logger;
 public class UserManagerImpl implements UserManager{
     private static UserManager instance;
     private HashMap<String, User> MapUsers;
-    List<User> listusers;
+    public List<User> listusers;
+    private HashMap<String, Product> inventario;
     final static Logger logger = Logger.getLogger(UserManagerImpl.class);
     private UserManagerImpl(){
         this.listusers = new ArrayList<>();
@@ -68,4 +68,20 @@ public class UserManagerImpl implements UserManager{
     public List<User> getUsers() {
         return listusers;
     }
+
+    /*@Override
+    public void comprar(User user, Product product) throws ProductNoExiste, UserNoExiste {
+        if(user == null ) {
+            logger.info("Comprovem que l'usuari existeix");
+            throw new UserNoExiste();
+        } else if (product == null) {
+            logger.info("Comprovem que el producte existeix");
+            throw new ProductNoExiste();
+        }
+        else{
+            String idUser = user.getIdUser();
+            inventario.put(idUser, product);
+        }
+
+    }*/
 }

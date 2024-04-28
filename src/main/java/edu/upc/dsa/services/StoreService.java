@@ -4,8 +4,10 @@ import edu.upc.dsa.StoreManager;
 import edu.upc.dsa.StoreManagerImpl;
 import edu.upc.dsa.UserManager;
 import edu.upc.dsa.UserManagerImpl;
+import edu.upc.dsa.exceptions.ProductNoExiste;
 import edu.upc.dsa.exceptions.ProductYaExiste;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
+import edu.upc.dsa.exceptions.UserNoExiste;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import io.swagger.annotations.Api;
@@ -17,17 +19,23 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.List;
 
 @Api(value = "/store", description = "Endpoint to Store Service")
 @Path("/store")
 public class StoreService {
     private StoreManager sm;
-    public StoreService() throws ProductYaExiste {
+    private UserManager um;
+    public StoreService() throws ProductYaExiste, UserNameYaExiste {
         this.sm = StoreManagerImpl.getInstance();
+        this.um = UserManagerImpl.getInstance();
         if (sm.getProducts().size()==0){
-            sm.addProduct("Martillo","Tool to save the alien",15);
-            sm.addProduct("Pico","Tool to save the alien",20);
+            sm.addProduct("1","Martillo","Tool to save the alien",15);
+            sm.addProduct("2","Pico","Tool to save the alien",20);
+        } else if (um.getUsers().isEmpty()){
+            um.registerUser(new User("Laura","Fernandez","lauraa8","12345"));
+            um.registerUser(new User("Anna","Fernandez","annaa11","56789"));
 
         }
 
@@ -41,12 +49,74 @@ public class StoreService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getListofProducts() {
         List<Product> products = this.sm.getProducts();
-
         GenericEntity<List<Product>> entity = new GenericEntity<List<Product>>(products) {};
         return Response.status(201).entity(entity).build();
-
-
-
     }
+    @POST
+    @ApiOperation(value = "create a new Product", notes = "add a new product")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response=Product.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+
+    })
+
+    @Path("/addProduct")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addProduct(Product product) throws ProductYaExiste {
+
+        if (product.getName() == null || product.getDescription() == null  || product.getPrice() == 0 || product.getIdProduct()== null)  return Response.status(500).entity(product).build();
+        this.sm.addProduct(product.getIdProduct(), product.getName(), product.getDescription(), product.getPrice());
+        return Response.status(201).entity(product).build();
+    }
+
+    @GET
+    @ApiOperation(value = "get a Product", notes = "get a product by the id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Product.class),
+            @ApiResponse(code = 404, message = "Track not found")
+    })
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProduct(@PathParam("id") String id) {
+        Product p = this.sm.getProduct(id);
+        if (p == null) return Response.status(404).build();
+        else  return Response.status(201).entity(p).build();
+    }
+
+    @DELETE
+    @ApiOperation(value = "delete a Product", notes = "Delete a product from the store")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Product not found")
+    })
+    @Path("/{id}")
+    public Response deleteTrack(@PathParam("id") String id) {
+        Product p = this.sm.getProduct(id);
+        if (p == null) return Response.status(404).build();
+        else this.sm.deleteP(id);
+        return Response.status(201).build();
+    }
+
+
+
+
+
+    /*@PUT
+    @ApiOperation(value = "Buy a product ", notes = "Buy a product from the store")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Product not found")
+    })
+    @Path("/buy")
+    public Response comprarProduct(User user, Product product) throws ProductNoExiste, UserNoExiste {
+
+        HashMap<String, Product> i = this.sm.comprar(user, product);
+
+        if (i == null){
+            return Response.status(404).build();
+        }
+
+        return Response.status(201).build();
+    }*/
 
 }

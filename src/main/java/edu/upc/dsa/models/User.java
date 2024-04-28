@@ -10,6 +10,7 @@ public class User {
         String username;
         String password;
 
+
         public User(){ this.idUser = RandomUtils.getIdUser(); }
         public User(String name, String surname, String username, String password){
             this.idUser = idUser;

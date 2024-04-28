@@ -8,8 +8,9 @@ public class Product {
     String description;
     double price;
 
-    public Product(){ this.idProduct = RandomUtils.getIdProduct();}
-    public Product(String name, String description, double price){
+    public Product(){ //this.idProduct = RandomUtils.getIdProduct();
+         }
+    public Product(String idProduct, String name, String description, double price){
         this.idProduct = idProduct;
         this.name = name;
         this.description = description;
