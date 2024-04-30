@@ -75,7 +75,7 @@ public class StoreService {
             @ApiResponse(code = 201, message = "Successful", response = Product.class),
             @ApiResponse(code = 404, message = "Track not found")
     })
-    @Path("/{id}")
+    @Path("/getProduct/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProduct(@PathParam("id") String id) {
         Product p = this.sm.getProduct(id);
@@ -89,8 +89,8 @@ public class StoreService {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "Product not found")
     })
-    @Path("/{id}")
-    public Response deleteTrack(@PathParam("id") String id) {
+    @Path("/deleteProduct/{id}")
+    public Response deleteProduct(@PathParam("id") String id) {
         Product p = this.sm.getProduct(id);
         if (p == null) return Response.status(404).build();
         else this.sm.deleteP(id);

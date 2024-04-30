@@ -11,10 +11,108 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
+        <script>
+            $(document).ready(function(){
+                $('#buttonMostrar').click(function() {
+                    $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
+                        txt ="";
+                        $("#ProductosTienda tbody").empty();
+                        $.each(data, function(index, item){
+                            $("#ProductosTienda tbody").append(
+                                txt = '<tr><td>'+ item.name +
+                                    '</td><td>' + item.idProduct +
+                                    '</td><td>' + item.description +
+                                    '</td><td>'+ item.price +
+                                    '</td><button type="buttonBuy" class="btn btn-blue" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
+                                    '</td><td>'
+                            );
+                        });
+                    });
+                });
+                $('#buttonGuardar').click(function () {
+                    var idProduct = $('#idProduct').val();
+                    var name = $('#nameProduct').val();
+                    var description = $('#descriptionProduct').val();
+                    var price = $('#priceProduct').val();
+
+                    var productData = {
+                        idProduct: $('#idProduct').val(),
+                        name: $('#nameProduct').val(),
+                        description: $('#descriptionProduct').val(),
+                        price: $('#priceProduct').val()
+                    };
+
+                    var URL = "dsaApp/store/addProduct";
+                    $.post({
+                        url: URL,
+                        data: JSON.stringify(productData),
+                        contentType: 'application/json; charset=utf-8'
+                    })
+                        .done(function (data, status) {
+                            $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
+                                txt ="";
+                                $("#ProductosTienda tbody").empty();
+                                $.each(data, function(index, item){
+                                    $("#ProductosTienda tbody").append(
+                                        txt = '<tr><td>'+ item.name +
+                                            '</td><td>' + item.idProduct +
+                                            '</td><td>' + item.description +
+                                            '</td><td>'+ item.price +
+                                            '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
+                                            '</td><td>'
+                                    );
+                                });
+                            });
+                            alert("Producte afegit correctament");
+
+                        })
+                        .fail(function (xhr, err) {
+                            alert("El producte ja existeix");
+                            location.reload();
+                        })
+
+                })
+                $('#buttonDelete').click(function () {
+
+                    var productData = {
+                        idProduct: $('#idProductDel').val(),
+                    };
+
+                    var URL = "dsaApp/store/deleteProduct";
+                    $.post({
+                        url: URL,
+                        data: JSON.stringify(productData),
+                        contentType: 'application/json; charset=utf-8'
+                    })
+                        .done(function (data, status) {
+
+                            alert("Producte esborrat correctament");
+                            $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
+                                txt ="";
+                                $("#ProductosTienda tbody").empty();
+                                $.each(data, function(index, item){
+                                    $("#ProductosTienda tbody").append(
+                                        txt = '<tr><td>'+ item.name +
+                                            '</td><td>' + item.idProduct +
+                                            '</td><td>' + item.description +
+                                            '</td><td>'+ item.price +
+                                            '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
+                                            '</td><td>'
+                                    );
+                                });
+                            });
+
+                        })
+                        .fail(function (xhr, err) {
+                            alert("El producte no existeix");
+                            location.reload();
+                        })
+                })
 
 
 
+
+        });
 
     </script>
 
@@ -22,10 +120,12 @@
         .container {
             text-align: center; /*Centra botons*/
         }
+
         .btn {
             margin: 20px; /*Agrega espai entre botons*/
         }
-        .table{
+
+        .table {
             text-align: left;
         }
     </style>
@@ -39,10 +139,36 @@
 <div class="container p-3 my-3 bg-light text-dark">
     <div class="row">
 
-        <h1>Combustibles</h1>
+        <h1>Productos</h1>
+
+        <table class="table table-dark table-striped table borderless" id="ProductosTienda">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Comprar</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+        <!--<h1>Combustibles</h1>
         <table class="table" id="combustiblesTable">
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Descripció</th>
                 <th>Preu</th>
@@ -78,7 +204,7 @@
     </div>
 
 
-    <!--Boto ADD-->
+    Boto ADD-->
     <button type="buttonAdd" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Afegir Producte</button>
 
     <div class="modal fade" id="myModal">
@@ -91,7 +217,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <p>Nom: <input type="text" id="idProduct"></p>
+                    <p>Nom: <input type="text" id="nameProduct"></p>
+                    <p>Id: <input type="text" id="idProduct"></p>
                     <p>Descripció: <input type="text" id="descriptionProduct"></p>
                     <p>Preu: <input type="text" id="priceProduct"></p>
                     <button id="buttonGuardar" class="btn btn-light" data-dismiss="modal" onClick="addProduct">Guardar</button>
@@ -114,15 +241,28 @@
                 </div>
 
                 <div class="modal-body">
-                    <p>Nom: <input type="text" id="idProductDel"></p>
+                    <p>ID: <input type="text" id="idProductDel"></p>
                     <button id="buttonDelete" class="btn btn-light" data-dismiss="modal" onclick="deleteP">Borrar</button>
 
                 </div>
             </div>
         </div>
     </div>
+    <!--Boto -->
+    <button id="buttonMostrar" type="buttonMostrar" class="btn btn-dark" data-toggle="modal" data-target="#myModalProducts">Llista Producte</button>
 
+    <div class="modal fade" id="myModalProduct">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white">
 
+                <div class="modal-header">
+                    <h4 class="modal-title">Mostrar Producte</h4>
+                    <button type="button" class="close text-danger" data-dismiss="modal" onclick="getProducts">&times;</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 </div>
