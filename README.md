@@ -14,3 +14,5 @@ Funcions de la API de la botiga funcionant:
 	- afegir producte
 	- borrar producte
 	- mostrar producte per id
+--------30/04/2024-------------------------------
+Igual, amb ip maquina
