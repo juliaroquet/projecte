@@ -73,9 +73,10 @@
 
             })
             $('#buttonDelete').click(function () {
+                var idProduct = $('#idProduct').val();
 
                 var productData = {
-                    idProduct: $('#idProductDel').text(),
+                    idProduct: $('#idProduct').val()
                 };
 
                 var URL = "dsaApp/store/deleteProduct";
@@ -229,7 +230,7 @@ Boto ADD-->
     </div>
 
     <!--Boto DELETE-->
-    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalDel">Borrar Producte</button>
+    <button type="buttonDelete" class="btn btn-dark" data-toggle="modal" data-target="#myModalDel">Borrar Producte</button>
 
     <div class="modal fade" id="myModalDel">
         <div class="modal-dialog modal-lg">
