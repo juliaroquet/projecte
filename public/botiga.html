@@ -23,7 +23,6 @@
                                 '</td><td>' + item.idProduct +
                                 '</td><td>' + item.description +
                                 '</td><td>'+ item.price +
-                                '</td><button type="buttonBuy" class="btn btn-blue" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
                                 '</td><td>'
                         );
                     });
@@ -54,11 +53,11 @@
                             $("#ProductosTienda tbody").empty();
                             $.each(data, function(index, item){
                                 $("#ProductosTienda tbody").append(
-                                    txt = '<tr><td>'+ item.name +
+                                    txt = '<td><td>'+ item.name +
                                         '</td><td>' + item.idProduct +
                                         '</td><td>' + item.description +
                                         '</td><td>'+ item.price +
-                                        '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
+                                        '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></td>'+
                                         '</td><td>'
                                 );
                             });
@@ -72,14 +71,14 @@
                     })
 
             })
-            $('#buttonDelete').click(function () {
-                var idProduct = $('#idProduct').val();
+            $('#buttonDeleteProduct').click(function () {
+                var idProduct = $('#idProduct').text();
 
                 var productData = {
-                    idProduct: $('#idProduct').val()
+                    idProduct: $('#idProductDel').val(),
                 };
 
-                var URL = "dsaApp/store/deleteProduct";
+                var URL = "dsaApp/store/deleteProduct" + idProduct;
                 $.post({
                     url: URL,
                     data: JSON.stringify(productData),
@@ -97,7 +96,6 @@
                                         '</td><td>' + item.idProduct +
                                         '</td><td>' + item.description +
                                         '</td><td>'+ item.price +
-                                        '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></tr>'+
                                         '</td><td>'
                                 );
                             });
@@ -109,10 +107,6 @@
                         location.reload();
                     })
             })
-
-
-
-
         });
 
     </script>
@@ -140,18 +134,20 @@
 <div class="container p-3 my-3 bg-light text-dark">
     <div class="row">
 
-        <h1>Productos</h1>
+        <h1>Productes</h1>
 
-        <table class="table table-dark table-striped table borderless" id="ProductosTienda">
+        <table class="table table-light table-striped table borderless" id="ProductosTienda">
             <thead>
+
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>ID</th>
-                <th>Description</th>
-                <th>Price</th>
+                <th>Descripción</th>
+                <th>Preu</th>
                 <th>Comprar</th>
 
             </tr>
+
             </thead>
             <tbody>
             </tbody>
@@ -159,53 +155,7 @@
     </div>
 
 
-
-
-
-
-
-
-    <!--<h1>Combustibles</h1>
-    <table class="table" id="combustiblesTable">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-        </tr>
-
-
-        </thead>
-
-    </table>
-    <h1>Aliments</h1>
-    <table class="table" id="AlimentsTable">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-        </tr>
-
-
-        </thead>
-    </table>
-    <h1>Material</h1>
-    <table class="table" id="MaterialTable">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-        </tr>
-        </thead>
-    </table>
-
-</div>
-
-
-Boto ADD-->
+    <!--Boto ADD-->
     <button type="buttonAdd" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Afegir Producte</button>
 
     <div class="modal fade" id="myModal">
@@ -242,8 +192,9 @@ Boto ADD-->
                 </div>
 
                 <div class="modal-body">
-                    <p>ID: <span id="idProductDel"></span></p>
-                    <button id="buttonDelete" class="btn btn-light" data-dismiss="modal">Borrar</button>
+                    <p>ID: <input type="text" id="idProductDel"></p>
+                    <button id="buttonDelete" class="btn btn-light" data-dismiss="modal" onclick="deleteP">Borrar</button>
+
                 </div>
             </div>
         </div>
