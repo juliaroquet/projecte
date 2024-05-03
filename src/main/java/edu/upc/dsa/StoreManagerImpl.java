@@ -55,10 +55,8 @@ public class StoreManagerImpl implements StoreManager{
         return null;
     }
 
-
-
     @Override
-    public void delete(String id) {
+    public void deleteP(String id) {
         Product p = this.getProduct(id);
         if (p==null) {
             logger.warn("not found " + p);
@@ -67,6 +65,18 @@ public class StoreManagerImpl implements StoreManager{
 
         this.listproducts.remove(p);
     }
+
+
+   /* @Override
+    public void delete(String id) {
+        Product p = this.getProduct(id);
+        if (p==null) {
+            logger.warn("not found " + p);
+        }
+        else logger.info(p +" deleted ");
+
+        this.listproducts.remove(p);
+    }*/
 
 
 
