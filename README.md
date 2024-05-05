@@ -16,3 +16,5 @@ Funcions de la API de la botiga funcionant:
 	- mostrar producte per id
 --------30/04/2024-------------------------------
 Igual, amb ip maquina
+--------5/05/2024-------------------------------
+Afegides classes per implementar BBDD

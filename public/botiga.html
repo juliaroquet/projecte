@@ -48,6 +48,8 @@
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
+
+                        alert("Producte afegit correctament");
                         $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
                             txt ="";
                             $("#ProductosTienda tbody").empty();
@@ -62,7 +64,6 @@
                                 );
                             });
                         });
-                        alert("Producte afegit correctament");
 
                     })
                     .fail(function (xhr, err) {
