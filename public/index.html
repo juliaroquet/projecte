@@ -13,6 +13,9 @@
 
     <script>
         $(document).ready(function(){
+            function perfil(){
+                window.location.href="perfil.html";
+            }
             $('#buttonLogIn').click(function() {
                 var username = $('#userLogIn').val();
                 var password = $('#passwLogIn').val();
@@ -30,9 +33,10 @@
                 })
                     .done(function (data, status) {
                         alert("Login correcte" );
+                        perfil();
                     })
                     .fail(function (xhr, err) {
-                        alert("usuario o contrasenya incorrecte");
+                        alert("Usuari o contrasenya incorrecte");
                         location.reload();
                     })
             })
@@ -74,7 +78,7 @@
         <div class="col-sm">
             <p>Nom del usuari: <input type="text" id="userLogIn"></p>
             <p>Contrasenya: <input type="password" id="passwLogIn"></p>
-            <button id="buttonLogIn" class="btn btn-light" >LogIn</button>
+            <button onclick="perfil()" id="buttonLogIn" class="btn btn-light" >LogIn</button>
             <p></p>
             <p>Encara no estas registrat? Registrat! </p>
             <button type="buttonRegister" class="btn btn-light" data-toggle="modal" data-target="#myModal">Register</button>
@@ -99,6 +103,7 @@
                     </div>
                 </div>
             </div>
+            <button id="buttonOlvidarContraseña" class="btn btn-light" >Olvidar contraseña</button>
         </div>
         <div class="col-sm-4"></div>
     </div>

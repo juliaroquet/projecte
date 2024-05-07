@@ -23,16 +23,17 @@
                                 '</td><td>' + item.idProduct +
                                 '</td><td>' + item.description +
                                 '</td><td>'+ item.price +
-                                '</td></tr>'
+                                '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
+                                '</td><td>'
                         );
                     });
                 });
             });
             $('#buttonGuardar').click(function () {
-                /*var idProduct = $('#idProduct').val();
+                var idProduct = $('#idProduct').val();
                 var name = $('#nameProduct').val();
                 var description = $('#descriptionProduct').val();
-                var price = $('#priceProduct').val();*/
+                var price = $('#priceProduct').val();
 
                 var productData = {
                     idProduct: $('#idProduct').val(),
@@ -48,6 +49,7 @@
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
+
                         alert("Producte afegit correctament");
                         $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
                             txt ="";
@@ -58,10 +60,12 @@
                                         '</td><td>' + item.idProduct +
                                         '</td><td>' + item.description +
                                         '</td><td>'+ item.price +
-                                        '</td></tr>'
+                                        '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
+                                        '</td><tr>'
                                 );
                             });
                         });
+
                     })
                     .fail(function (xhr, err) {
                         alert("El producte ja existeix");
@@ -69,18 +73,12 @@
                     })
 
             })
-            $('#buttonDeleteProduct').click(function () {
-                var idProduct = $('#idProduct').text();
-
-                var productData = {
-                    idProduct: $('#idProductDel').val(),
-                };
-
-                var URL = "dsaApp/store/deleteProduct" + idProduct;
-                $.post({
+            $('#buttonDelete').click(function () {
+                var idProduct = $('#idProductDel').val();
+                var URL = "dsaApp/store/deleteProduct/" + idProduct;
+                $.ajax({
+                    type: "DELETE",
                     url: URL,
-                    data: JSON.stringify(productData),
-                    contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
 
@@ -94,6 +92,7 @@
                                         '</td><td>' + item.idProduct +
                                         '</td><td>' + item.description +
                                         '</td><td>'+ item.price +
+                                        '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
                                         '</td><td>'
                                 );
                             });
@@ -110,27 +109,30 @@
     </script>
 
     <style>
-        .container {
-            text-align: center; /*Centra botons*/
+        body {
+            .container {
+                text-align: center; /*Centra botons*/
+            }
+
+            .btn {
+                margin: 20px; /*Agrega espai entre botons*/
+            }
+
+            .table {
+                text-align: left;
+            }
+
+            background-image: url('galaxia2.jpg');
+
         }
 
-        .btn {
-            margin: 20px; /*Agrega espai entre botons*/
-        }
-
-        .table {
-            text-align: left;
-        }
-        .container{
-            background-image: url('fondo.jpg');
-        }
     </style>
 </head>
 
 
 <body>
-<div class="jumbotron bg-blue text-center">
-    <h1 style="color: black"><b>Botiga</b></h1>
+<div class="jumbotron bg-dark text-center">
+    <h1 style="color:lightcyan"><b>Botiga</b></h1>
 </div>
 <div class="container p-3 my-3 bg-light text-dark">
     <div class="row">
