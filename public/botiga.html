@@ -23,16 +23,16 @@
                                 '</td><td>' + item.idProduct +
                                 '</td><td>' + item.description +
                                 '</td><td>'+ item.price +
-                                '</td><td>'
+                                '</td></tr>'
                         );
                     });
                 });
             });
             $('#buttonGuardar').click(function () {
-                var idProduct = $('#idProduct').val();
+                /*var idProduct = $('#idProduct').val();
                 var name = $('#nameProduct').val();
                 var description = $('#descriptionProduct').val();
-                var price = $('#priceProduct').val();
+                var price = $('#priceProduct').val();*/
 
                 var productData = {
                     idProduct: $('#idProduct').val(),
@@ -48,23 +48,20 @@
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
-
                         alert("Producte afegit correctament");
                         $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
                             txt ="";
                             $("#ProductosTienda tbody").empty();
                             $.each(data, function(index, item){
                                 $("#ProductosTienda tbody").append(
-                                    txt = '<td><td>'+ item.name +
+                                    txt = '<tr><td>'+ item.name +
                                         '</td><td>' + item.idProduct +
                                         '</td><td>' + item.description +
                                         '</td><td>'+ item.price +
-                                        '</td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button></td>'+
-                                        '</td><td>'
+                                        '</td></tr>'
                                 );
                             });
                         });
-
                     })
                     .fail(function (xhr, err) {
                         alert("El producte ja existeix");
