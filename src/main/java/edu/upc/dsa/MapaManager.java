@@ -9,7 +9,7 @@ import java.util.List;
 public interface MapaManager {
     public List<Mapa> getmapalist();
     public Mapa getmapa(int id) throws MapaNoExiste;
-    public Mapa addmapa(int foodElements, int fuelElements, int fuelRequirement, int enemies, String name) throws MapaNomYaExisteix;
+    public Mapa addmapa(int idMapa, int foodElements, int fuelElements, int fuelRequirement, int enemies, String name) throws MapaNomYaExisteix;
     public Mapa deletemapa(int id) throws MapaNoExiste;
     public int size();
 }

@@ -4,10 +4,7 @@ import edu.upc.dsa.StoreManager;
 import edu.upc.dsa.StoreManagerImpl;
 import edu.upc.dsa.UserManager;
 import edu.upc.dsa.UserManagerImpl;
-import edu.upc.dsa.exceptions.ProductNoExiste;
-import edu.upc.dsa.exceptions.ProductYaExiste;
-import edu.upc.dsa.exceptions.UserNameYaExiste;
-import edu.upc.dsa.exceptions.UserNoExiste;
+import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import io.swagger.annotations.Api;
@@ -19,7 +16,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
 import java.util.List;
 
 @Api(value = "/store", description = "Endpoint to Store Service")
@@ -27,16 +23,15 @@ import java.util.List;
 public class StoreService {
     private StoreManager sm;
     private UserManager um;
-    public StoreService() throws ProductYaExiste, UserNameYaExiste {
+    public StoreService() throws ProductYaExiste, UserNameYaExiste, UserNotRegisteredException {
         this.sm = StoreManagerImpl.getInstance();
         this.um = UserManagerImpl.getInstance();
         if (sm.getProducts().size()==0){
             sm.addProduct("1","Martillo","Tool to save the alien",15);
             sm.addProduct("2","Pico","Tool to save the alien",20);
-        } else if (um.getUsers().isEmpty()){
-            um.registerUser(new User("Laura","Fernandez","lauraa8","12345"));
-            um.registerUser(new User("Anna","Fernandez","annaa11","56789"));
-
+        } else if (um.getUsers().isEmpty()) {
+            um.registerUser(new User("Laura", "Fernandez", "lauraa8", "12345"));
+            um.registerUser(new User("Anna", "Fernandez", "annaa11", "56789"));
         }
 
     }
@@ -97,11 +92,7 @@ public class StoreService {
         return Response.status(201).build();
     }
 
-
-
-
-
-    /*@PUT
+   /*@POST
     @ApiOperation(value = "Buy a product ", notes = "Buy a product from the store")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
@@ -110,13 +101,15 @@ public class StoreService {
     @Path("/buy")
     public Response comprarProduct(User user, Product product) throws ProductNoExiste, UserNoExiste {
 
-        HashMap<String, Product> i = this.sm.comprar(user, product);
+        boolean comprado = this.sm.comprar(user, product);
 
-        if (i == null){
+        if (comprado){
+            return Response.status(201).build();
+        }
+        else {
             return Response.status(404).build();
         }
 
-        return Response.status(201).build();
     }*/
 
 }

@@ -2,6 +2,9 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
         String idUser;
@@ -9,6 +12,7 @@ public class User {
         String surname;
         String username;
         String password;
+        List<Product> inventario;
 
 
         public User(){ this.idUser = RandomUtils.getIdUser(); }
@@ -18,6 +22,7 @@ public class User {
             this.surname = surname;
             this.username = username;
             this.password = password;
+            this.inventario = new ArrayList<Product>();
         }
 
     public String getIdUser() {
@@ -59,4 +64,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public List<Product> getInventario() {
+            return inventario;
+    }
+
+    public void setInventario(List<Product> inventario) {
+        this.inventario = inventario;
+    }
+
 }

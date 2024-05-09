@@ -6,16 +6,13 @@ import edu.upc.dsa.exceptions.UserNoExiste;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
-import edu.upc.dsa.UserManagerImpl;
-import edu.upc.dsa.UserManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class StoreManagerImpl implements StoreManager{
     private static StoreManager instance;
-    public HashMap<String, Product> inventario;
+    //public HashMap<String, Product> inventario;
     List<User> users = UserManagerImpl.getInstance().getUsers();
     public List<Product> listproducts;
 
@@ -23,7 +20,7 @@ public class StoreManagerImpl implements StoreManager{
     private StoreManagerImpl(){
         this.listproducts = new ArrayList<>();
         this.users = new ArrayList<>();
-        this.inventario = new HashMap<>();
+        //this.inventario = new HashMap<>();
     }
     public static StoreManager getInstance(){
         if (instance==null) instance = new StoreManagerImpl();
@@ -105,20 +102,22 @@ public class StoreManagerImpl implements StoreManager{
         throw new ProductNoExiste();
     }
     @Override
-    public HashMap<String, Product> comprar(User user, Product product) throws ProductNoExiste, UserNoExiste {
-        if(users.contains(user) ) {
-            logger.info("Comprovem que l'usuari existeix");
-            throw new UserNoExiste();
-        } else if (product == null) {
-            logger.info("Comprovem que el producte existeix");
+    public boolean comprar(User user, Product product) throws ProductNoExiste, UserNoExiste {
+        boolean comprado = false;
+        boolean p = listproducts.contains(product);
+        if(listproducts.contains(product) & users.contains(user)){
+            logger.info("Item comprat");
+            comprado = true;
+            user.getInventario().add(product);
+            return comprado;
+        }
+        else if(p == false){
+            logger.info("INo existeix producte");
             throw new ProductNoExiste();
         }
         else{
-            String idUser = user.getIdUser();
-            inventario.put(idUser, product);
+            logger.info("Comprovem que l'usuari existeix");
+            throw new UserNoExiste();
         }
-        return inventario;
     }
-
-
 }

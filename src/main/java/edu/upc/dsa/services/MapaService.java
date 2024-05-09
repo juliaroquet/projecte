@@ -9,9 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,9 +22,9 @@ public class MapaService {
     public MapaService() throws MapaNomYaExisteix {
         this.mm = MapaManagerImpl.getInstance();
         if(mm.getmapalist().size()==0){
-            mm.addmapa(10,10,500,2,"Júpiter");
-            mm.addmapa(20,5,550,1,"Saturn");
-            mm.addmapa(30,15,600,3,"Mercuri");
+            mm.addmapa(1,10,10,500,2,"Júpiter");
+            mm.addmapa(2, 20,5,550,1,"Saturn");
+            mm.addmapa(3, 30,15,600,3,"Mercuri");
         }
     }
     @GET
@@ -40,5 +38,20 @@ public class MapaService {
         List<Mapa> mapas = this.mm.getmapalist();
         GenericEntity<List<Mapa>> entity = new GenericEntity<List<Mapa>>(mapas) {};
         return Response.status(201).entity(entity).build();
+    }
+    @POST
+    @ApiOperation(value = "Add a new Map", notes = "Afegim un nou mapa")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Map added Successfully"),
+            @ApiResponse(code = 500, message = "The fields have been wrongly filled in"),
+
+
+    })
+    @Path("/addMapa")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addMap(Mapa mapa) throws MapaNomYaExisteix {
+        if (mapa.getIdMapa() == 0 || mapa.getName() == null || mapa.getEnemies() == 0 || mapa.getFoodElements() == 0 || mapa.getFuelElements() == 0 || mapa.getFuelRequirement() == 0)  return Response.status(500).entity(mapa).build();
+        this.mm.addmapa(mapa.getIdMapa(), mapa.getFoodElements(), mapa.getFuelElements(), mapa.getFuelRequirement(), mapa.getEnemies(), mapa.getName());
+        return Response.status(201).entity(mapa).build();
     }
 }

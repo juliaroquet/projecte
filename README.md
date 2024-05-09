@@ -18,3 +18,5 @@ Funcions de la API de la botiga funcionant:
 Igual, amb ip maquina
 --------5/05/2024-------------------------------
 Afegides classes per implementar BBDD
+--------9/05/2024-------------------------------
+Partida y mapa Services ambas funcions GET i ADD

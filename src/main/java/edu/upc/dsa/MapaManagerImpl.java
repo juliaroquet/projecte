@@ -31,27 +31,27 @@ public class MapaManagerImpl implements MapaManager{
     }
 
     @Override
-    public Mapa getmapa(int id) throws MapaNoExiste {
-        boolean found = listmapas.contains(id);
+    public Mapa getmapa(int idMapa) throws MapaNoExiste {
+        boolean found = listmapas.contains(idMapa);
         if(found) {
-            logger.info("found " + id);
-            return listmapas.get(id);
+            logger.info("found " + idMapa);
+            return listmapas.get(idMapa);
         }
         else{
-            logger.warn("not found " + id);
+            logger.warn("not found " + idMapa);
             throw new MapaNoExiste();
         }
     }
 
     @Override
-    public Mapa addmapa(int foodElements, int fuelElements, int fuelRequirement, int enemies, String name) throws MapaNomYaExisteix {
+    public Mapa addmapa(int idMapa, int foodElements, int fuelElements, int fuelRequirement, int enemies, String name) throws MapaNomYaExisteix {
         if(listmapas.contains(name)){
             logger.warn("El nom del mapa ja existeix");
             throw new MapaNomYaExisteix();
         }
         else {
-            Mapa mapa = new Mapa(foodElements, fuelElements, fuelRequirement, enemies, name);
-            listmapas.add(mapa.getIdMapa(), mapa);
+            Mapa mapa = new Mapa(idMapa, foodElements, fuelElements, fuelRequirement, enemies, name);
+            listmapas.add(mapa);
             logger.info("added mapa: " + mapa.getIdMapa());
             return mapa;
         }

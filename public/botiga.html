@@ -13,7 +13,7 @@
 
     <script>
         $(document).ready(function(){
-            $('#buttonMostrar').click(function() {
+            function getProducts(){
                 $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
                     txt ="";
                     $("#ProductosTienda tbody").empty();
@@ -28,6 +28,9 @@
                         );
                     });
                 });
+            }
+            $('#buttonMostrar').click(function() {
+                getProducts();
             });
             $('#buttonGuardar').click(function () {
                 var idProduct = $('#idProduct').val();
@@ -49,22 +52,8 @@
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
-
                         alert("Producte afegit correctament");
-                        $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
-                            txt ="";
-                            $("#ProductosTienda tbody").empty();
-                            $.each(data, function(index, item){
-                                $("#ProductosTienda tbody").append(
-                                    txt = '<tr><td>'+ item.name +
-                                        '</td><td>' + item.idProduct +
-                                        '</td><td>' + item.description +
-                                        '</td><td>'+ item.price +
-                                        '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
-                                        '</td><tr>'
-                                );
-                            });
-                        });
+                        getProducts();
 
                     })
                     .fail(function (xhr, err) {
@@ -83,20 +72,7 @@
                     .done(function (data, status) {
 
                         alert("Producte esborrat correctament");
-                        $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
-                            txt ="";
-                            $("#ProductosTienda tbody").empty();
-                            $.each(data, function(index, item){
-                                $("#ProductosTienda tbody").append(
-                                    txt = '<tr><td>'+ item.name +
-                                        '</td><td>' + item.idProduct +
-                                        '</td><td>' + item.description +
-                                        '</td><td>'+ item.price +
-                                        '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
-                                        '</td><td>'
-                                );
-                            });
-                        });
+                        getProducts();
 
                     })
                     .fail(function (xhr, err) {

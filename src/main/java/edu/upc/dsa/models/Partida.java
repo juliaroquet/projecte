@@ -3,16 +3,16 @@ package edu.upc.dsa.models;
 public class Partida {
     private int idPartida;
     int idMapa = getIdMapa();
-    private String idUser;
+    private String username;
 
     public Partida(){
 
     }
 
-    public Partida(int idPartida, int idMapa, String idUser) {
+    public Partida(int idPartida, int idMapa, String username) {
         this.idPartida = idPartida;
         this.idMapa = idMapa;
-        this.idUser = idUser;
+        this.username = username;
     }
     public int getIdPartida() {
         return idPartida;
@@ -26,11 +26,12 @@ public class Partida {
     public void setIdMapa(int idMapa) {
         this.idMapa = idMapa;
     }
-    public String getIdUser() {
-        return idUser;
-    }
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+
+    public String getUsername() {
+        return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

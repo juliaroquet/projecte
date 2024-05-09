@@ -86,4 +86,19 @@ import java.util.List;
             return Response.status(201).entity(entity).build()  ;
 
         }
+
+        @GET
+        @ApiOperation(value = "get inventario", notes = "Show the inventario of a user")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful", response = Product.class, responseContainer="List"),
+        })
+        @Path("/getInventario")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response getInventario(@QueryParam("username") String username) throws UserNotRegisteredException {
+
+            List<Product> inventario = this.um.getuserInventario(username);
+            GenericEntity<List<Product>> entity = new GenericEntity<List<Product>>(inventario) {};
+            return Response.status(201).entity(entity).build()  ;
+
+        }
     }
