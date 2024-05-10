@@ -78,6 +78,25 @@ public class UserManagerImpl implements UserManager{
         return inventario;
     }
 
+    @Override
+    public User getUser(String username) {
+        logger.info("getUser("+username+")");
+        for (User p: this.listusers) {
+            if (p.getUsername().equals(username)) {
+                logger.info("getUser("+username+"): "+p);
+                return p;
+            }
+        }
+        logger.warn("not found " + username);
+        return null;
+    }
+
+   /* @Override
+    public User changePassword(String username, String newPassword) {
+
+    }
+
+    */
 
 
 

@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+<script>
+    function infoPersonal(name, surname, username, inventario, coins){
+        var contenidor =
+            "<p>Nom: "+name+"</p>\n"+
+            "<p>Cognom:"+surname+"</p>\n"+
+            "<p>Nom usuari: "+username+"</p>\n"+
+            "<p>Inventari: "+inventario+"</p>\n";
+            "<p>Coins: "+coins+"</p>\n";
+
+        console.log(contenidor);
+        return contenidor;
+    }
+
+    $(document).ready(function() {
+        var name = localStorage.getItem('name');
+        var surname = localStorage.getItem('surname');
+        var coins = localStorage.getItem('coins');
+        var id = localStorage.getItem('idUser');
+        var username = localStorage.getItem('username')
+        var inventario = localStorage.getItem('inventario');
+
+        var url = "dsaApp/user/getUser/"+username;
+        $.get(url, function (data) {
+            var contenidor = infoPersonal( data.name, data.surname, data.username);
+            console.log(contenidor);
+            $("#user-info").append(contenidor);
+        });
+
+
+        // Agrega aquí tu código para manejar el formulario de cambio de contraseña
+        $('#change-password-form').submit(function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de manera convencional
+
+            // Aquí puedes agregar la lógica para cambiar la contraseña
+            var currentPassword = $('#current-password').val();
+            var newPassword = $('#new-password').val();
+
+            // Ejemplo de cómo puedes enviar la nueva contraseña al servidor mediante AJAX
+            $.post('cambiar_contraseña.php', {currentPassword: currentPassword, newPassword: newPassword})
+                .done(function(response) {
+                    alert('Contrasenya canviada correctament');
+                    // Puedes redirigir a otra página o hacer cualquier otra acción necesaria después de cambiar la contraseña
+                })
+                .fail(function() {
+                    alert('Ha hagut un error');
+                });
+        });
+    });
+
+
+</script>
 <body>
-<h1>Perfil dades</h1>
+<div class="jumbotron bg-dark text-center">
+    <h1 style="color:#ffffff">Perfil del jugador</h1>
+</div>
+<div class="jumbotron bg-light">
+    <h3>Dades usuari</h3>
+    <div id="user-info">
+        <!-- Aquí es mostren dades user -->
+    </div>
+
+    <hr>
+    <h3>Canviar Contrasenya</h3>
+    <div class="modal-change-password">
+
+        <p> Contrasenya Actual: <input type="password" id="current-password"></p>
+        <p> Nova Contrasenya: <input type="password" id="new-password"></p>
+        <button type="submit" class="btn btn-dark">Guardar Canvis</button>
+    </div>
+</div>
+
 </body>
 </html>

@@ -13,6 +13,9 @@ public class User {
         String username;
         String password;
         List<Product> inventario;
+        int coins;
+        int fuel;
+        int food;
 
 
         public User(){ this.idUser = RandomUtils.getIdUser(); }
@@ -23,6 +26,9 @@ public class User {
             this.username = username;
             this.password = password;
             this.inventario = new ArrayList<Product>();
+            this.coins = 100;
+            this.fuel = 0;
+            this.food = 0;
         }
 
     public String getIdUser() {
@@ -72,4 +78,27 @@ public class User {
         this.inventario = inventario;
     }
 
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(int fuel) {
+        this.fuel = fuel;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
 }

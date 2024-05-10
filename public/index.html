@@ -32,6 +32,9 @@
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
+                        localStorage.setItem("name",data.name);
+                        localStorage.setItem("username", data.username);
+                        localStorage.setItem("surname", data.surname);
                         alert("Login correcte");
                         perfil();
                     })

@@ -86,6 +86,20 @@ import java.util.List;
             return Response.status(201).entity(entity).build()  ;
 
         }
+        @GET
+        @ApiOperation(value = "get a User", notes = "get a user by the id")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful", response = User.class),
+                @ApiResponse(code = 404, message = "Track not found")
+        })
+        @Path("/getUser/{username}")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response getUser(@PathParam("username") String username) {
+            User p = this.um.getUser(username);
+            if (p == null) return Response.status(404).build();
+            else  return Response.status(201).entity(p).build();
+        }
+
 
         @GET
         @ApiOperation(value = "get inventario", notes = "Show the inventario of a user")
