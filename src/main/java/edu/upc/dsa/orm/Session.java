@@ -9,7 +9,8 @@ public interface Session<E> {
     Object get(Class theClass, Object ID);                                 // cRud
     void update(Object object);                                         // crUd
     void delete(Object object);                                         // cruD
-    List<Object> findAll(Class theClass);                               // cR
+    List<Object> findAll(Class theClass);
+    Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue);// cR
     List<Object> findAll(Class theClass, HashMap params);
     List<Object> query(String query, Class theClass, HashMap params);
 }

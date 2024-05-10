@@ -1,11 +1,13 @@
 package edu.upc.dsa.orm.util;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class QueryHelper {
-
+    final static Logger logger = Logger.getLogger(QueryHelper.class);
     public static String createQueryINSERT(Object entity) {
 
         StringBuffer sb = new StringBuffer("INSERT INTO ");
@@ -46,6 +48,15 @@ public class QueryHelper {
             sb.append(" AND "+key+"=?");
         }
 
+
+        return sb.toString();
+    }
+    public static String createQuerySELECTbyTwoParameters(Class theClass, String byFirstParameter, String bySecondParameter) {
+
+        StringBuffer sb = new StringBuffer("SELECT * FROM ");
+        sb.append(theClass.getSimpleName());
+        sb.append(" WHERE " + byFirstParameter + " = ?");
+        sb.append(" AND " + bySecondParameter + " = ?");
 
         return sb.toString();
     }

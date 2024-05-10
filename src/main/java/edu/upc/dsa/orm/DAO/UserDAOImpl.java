@@ -1,11 +1,11 @@
 package edu.upc.dsa.orm.DAO;
 
 import edu.upc.dsa.UserManagerImpl;
-import edu.upc.dsa.exceptions.PasswordIncorrecteException;
-import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
+import edu.upc.dsa.orm.FactorySession;
+import edu.upc.dsa.orm.Session;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -31,45 +31,67 @@ public class UserDAOImpl implements IUserDAO {
         logger.info("size " + ret);
         return ret;
     }
-
-
     @Override
-    public User registerUser(User user) throws UserNameYaExiste {
-        logger.info("Comprovem que no hi ha un nom d'usuari ja existent igual");
-        User user1 = MapUsers.get(user.getUsername());
-        if(user1 != null){
-            logger.error("Aquest username ya s'esta utilitzant");
-            throw new UserNameYaExiste();
+    public int registerUser(User user)  {
+        Session session = null;
+        int idUser = 1;
+        try{
+            session = FactorySession.openSession();
+            User user1 = new User(user.getName(), user.getSurname(), user.getPassword(), user.getUsername());
+            session.save(user1);
         }
-        logger.info("User registrat");
-        listusers.add(user);
-        MapUsers.put(user.getUsername(), user);
-        return user;
+        catch(Exception e){
+
+        }
+        finally{
+            session.close();
+        }
+        return idUser;
 
     }
 
     @Override
-    public User loginUser(String username, String password) throws PasswordIncorrecteException, UserNotRegisteredException {
-        User user = MapUsers.get(username);
-        if(user != null){
-            logger.info("L'usuari existeix");
-            if(!password.equals(user.getPassword())){
-                logger.warn("Password incorrecte");
-                throw new PasswordIncorrecteException();
-            }
-            logger.warn("User logged in");
-            return user;
-        }
-        else{
-            logger.warn("User no registrat");
-            throw new UserNotRegisteredException();
-        }
-
+    public User loginUser(String username, String password)  {
+      Session session = null;
+      User user = null;
+      try{
+          session = FactorySession.openSession();
+          user = (User) session.getbyTwoParameters(User.class, username, "nombre", password, "password");
+          if (user!=null) {
+              logger.info(user + " rebut!");
+              return user;
+          }
+      }
+      catch (Exception e) {
+          logger.warn("not found "+ user);
+          e.printStackTrace();
+      }
+      finally {
+          session.close();
+      }
+        return null;
     }
 
     @Override
     public List<User> getUsers() {
-        return listusers;
+       Session session = null;
+       List<User> listusers = null;
+       try{
+           session = FactorySession.openSession();
+           listusers = session.findAll(User.class);
+       }
+       catch(Exception e){
+           e.printStackTrace();
+       }
+       finally{
+           session.close();
+       }
+       return listusers;
+    }
+
+    @Override
+    public List<Product> getuserInventario(String username) throws UserNotRegisteredException {
+        return List.of();
     }
 
     /*@Override
