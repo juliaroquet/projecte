@@ -13,9 +13,10 @@ public class User {
         String username;
         String password;
         List<Product> inventario;
-        int coins;
+        double coins;
         int fuel;
         int food;
+
 
 
         public User(){ this.idUser = RandomUtils.getIdUser(); }
@@ -78,11 +79,11 @@ public class User {
         this.inventario = inventario;
     }
 
-    public int getCoins() {
+    public double getCoins() {
         return coins;
     }
 
-    public void setCoins(int coins) {
+    public void setCoins(double coins) {
         this.coins = coins;
     }
 

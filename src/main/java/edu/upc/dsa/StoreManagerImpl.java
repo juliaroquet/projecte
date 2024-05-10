@@ -104,11 +104,15 @@ public class StoreManagerImpl implements StoreManager{
     @Override
     public boolean comprar(User user, Product product) throws ProductNoExiste, UserNoExiste {
         boolean comprado = false;
+        double coins = user.getCoins();
+        double cost = product.getPrice();
+        double coinsTotals = coins - cost;
         boolean p = listproducts.contains(product);
         if(listproducts.contains(product) & users.contains(user)){
             logger.info("Item comprat");
             comprado = true;
             user.getInventario().add(product);
+            user.setCoins(coinsTotals);
             return comprado;
         }
         else if(p == false){

@@ -79,6 +79,19 @@ public class UserManagerImpl implements UserManager{
     }
 
     @Override
+    public User changePassword(String username, String newPassword) throws UserNotRegisteredException {
+        User user = MapUsers.get(username);
+        if(user != null){
+            user.setPassword(newPassword);
+            return user;
+        }
+        else{
+            logger.warn("User no registrat");
+            throw new UserNotRegisteredException();
+        }
+    }
+
+    @Override
     public User getUser(String username) {
         logger.info("getUser("+username+")");
         for (User p: this.listusers) {
@@ -91,12 +104,8 @@ public class UserManagerImpl implements UserManager{
         return null;
     }
 
-   /* @Override
-    public User changePassword(String username, String newPassword) {
 
-    }
 
-    */
 
 
 

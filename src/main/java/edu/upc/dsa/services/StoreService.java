@@ -92,23 +92,35 @@ public class StoreService {
         return Response.status(201).build();
     }
 
-   /*@POST
+   /*@PUT
     @ApiOperation(value = "Buy a product ", notes = "Buy a product from the store")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 201, message = "Successful", response = Product.class),
             @ApiResponse(code = 404, message = "Product not found")
     })
     @Path("/buy")
-    public Response comprarProduct(User user, Product product) throws ProductNoExiste, UserNoExiste {
+    public Response buyProduct(@QueryParam("username") String username, @QueryParam("idProduct") String idProduct) throws ProductYaExiste, ProductNoExiste, UserNoExiste {
+        boolean comprado = this.sm.comprar(user, product);
+        if (comprado) {
+            return Response.status(201).entity(product).build();
+        }
+        else return Response.status(404).build();
+   }*/
+
+
+
+
+    /*
+    * public Response comprarProduct(User user, Product product) throws ProductNoExiste, UserNoExiste {
 
         boolean comprado = this.sm.comprar(user, product);
 
         if (comprado){
-            return Response.status(201).build();
+            return Response.status(201).entity(comprado).build();
         }
-        else {
-            return Response.status(404).build();
-        }
+
+        return Response.status(404).build();
+
 
     }*/
 
