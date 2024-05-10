@@ -91,7 +91,7 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException {
-        return List.of();
+        return null;
     }
 
     /*@Override

@@ -3,8 +3,8 @@ package edu.upc.dsa.orm;
 import edu.upc.dsa.orm.util.ObjectHelper;
 import edu.upc.dsa.orm.util.QueryHelper;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -59,8 +59,8 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public Object get(Object entity , Hashtable table) {
-        String selectQuery = QueryHelper.createQuerySELECT(entity,table);
+    public Object get(Object entity, Hashtable table) {
+        /*String selectQuery = QueryHelper.createQuerySELECT(entity,table);
         PreparedStatement pstm = null;
         List<Object> ListObject = new ArrayList<Object>();
         try {
@@ -83,11 +83,12 @@ public class SessionImpl implements Session {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        return ListObject;
+        return ListObject;*/
+        return null;
     }
 
-    public Object get(Class theClass, int ID) {
-/*
+    public Object get(Class theClass, int ID) throws InstantiationException, IllegalAccessException, SQLException {
+
         String sql = QueryHelper.createQuerySELECT(theClass);
 
         Object o = theClass.newInstance();
@@ -102,13 +103,10 @@ public class SessionImpl implements Session {
 
         while (i<numColumns) {
             String key = rsmd.getColumnName(i);
-            String value = res.getObject(i);
-
+            String value = (String) res.getObject(i);
             ObjectHelper.setter(o, key, value);
 
         }
-
-*/
         return null;
     }
 
@@ -125,7 +123,7 @@ public class SessionImpl implements Session {
     }
 
 
-    @Override
+   @Override
     public Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue) {
         String selectQuery = QueryHelper.createQuerySELECTbyTwoParameters(theClass, (String) byFirstParameterValue, (String) bySecondParameterValue);
 
@@ -163,8 +161,8 @@ public class SessionImpl implements Session {
         }
     }
 
-    public List<Object> findAll(Class theClass, HashMap params) {
-     /*   String theQuery = QueryHelper.createSelectFindAll(theClass, params);
+    public List<Object> findAll(Class theClass, HashMap params) throws SQLException {
+       String theQuery = QueryHelper.createSelectFindAll(theClass, params);
         PreparedStatement pstm = null;
         pstm = conn.prepareStatement(theQuery);
 
@@ -177,9 +175,9 @@ public class SessionImpl implements Session {
 
 
 
-        return result;
-*/
         return null;
+
+
     }
 
     public List<Object> query(String query, Class theClass, HashMap params) {
