@@ -17,7 +17,7 @@ public class UserManagerImpl implements UserManager{
     public List<User> listusers;
     //private HashMap<String, Product> inventario;
     final static Logger logger = Logger.getLogger(UserManagerImpl.class);
-    private UserManagerImpl(){
+    UserManagerImpl(){
         this.listusers = new ArrayList<>();
         this.MapUsers = new HashMap<>();
     }

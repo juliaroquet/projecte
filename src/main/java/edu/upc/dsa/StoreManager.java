@@ -16,4 +16,5 @@ public interface StoreManager {
     public void addProduct(String id,String name, String description, double price) throws ProductYaExiste;
     public void deleteProduct(Product product) throws ProductNoExiste;
     public boolean comprar(User user, Product product) throws ProductNoExiste, UserNoExiste;
+    public List<Product> buyProduct(String username, String idProduct) throws ProductNoExiste, UserNoExiste;
 }

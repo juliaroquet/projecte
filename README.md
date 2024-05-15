@@ -26,3 +26,6 @@ Partida y mapa Services ambas funcions GET i ADD
 
 --------10/05/2024------------------------------------
 Funcions de login I register amb BBDD, falta probarles
+
+--------15/05/2024------------------------------------
+Funcions de compra en la API funcionant

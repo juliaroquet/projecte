@@ -13,7 +13,12 @@ import java.util.List;
 public class StoreManagerImpl implements StoreManager{
     private static StoreManager instance;
     //public HashMap<String, Product> inventario;
-    List<User> users = UserManagerImpl.getInstance().getUsers();
+    UserManagerImpl userManager = new UserManagerImpl();
+    List<User> users;
+    {
+        UserManagerImpl.getInstance().getUsers();
+    }
+
     public List<Product> listproducts;
 
     final static Logger logger = Logger.getLogger(StoreManagerImpl.class);
@@ -26,10 +31,12 @@ public class StoreManagerImpl implements StoreManager{
         if (instance==null) instance = new StoreManagerImpl();
         return instance;
     }
+
     public int size(){
         int ret = this.listproducts.size();
         logger.info("size " + ret);
         return ret;
+
     }
     @Override
     public List<Product> getProducts() {
@@ -124,4 +131,28 @@ public class StoreManagerImpl implements StoreManager{
             throw new UserNoExiste();
         }
     }
+
+    @Override
+    public List<Product> buyProduct(String username, String idProduct) throws ProductNoExiste, UserNoExiste {
+        User user = userManager.getInstance().getUser(username);
+        Product product = getProduct(idProduct);
+        if( user.getUsername()!= null && listproducts.contains(product)){
+            logger.info("Item Comprat");
+            double coins = user.getCoins();
+            double cost = product.getPrice();
+            double coinsTotals = coins - cost;
+            user.getInventario().add(product);
+            user.setCoins(coinsTotals);
+            List<Product> inventario = user.getInventario();
+            return inventario;
+
+        } else if (!listproducts.contains(getProduct(idProduct))) {
+            logger.info("El producte no existeix");
+            throw new ProductNoExiste();
+        }
+        logger.info("l'usuari no existeix");
+        throw new UserNoExiste();
+
+    }
+
 }
