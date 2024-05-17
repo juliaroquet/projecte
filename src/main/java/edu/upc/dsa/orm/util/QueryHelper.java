@@ -14,19 +14,28 @@ public class QueryHelper {
         sb.append(entity.getClass().getSimpleName()).append(" ");
         sb.append("(");
 
-        String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
+        //Obté a classe del objecte
+        Class theClass = entity.getClass();
 
-        sb.append("ID");
-        for (String field: fields) {
-            if (!field.equals("ID")) sb.append(", ").append(field);
-        }
-        sb.append(") VALUES (?");
+        //Obté els camps de la classe
+        String [] fields = ObjectHelper.getFields(entity);
 
-        for (String field: fields) {
-            if (!field.equals("ID"))  sb.append(", ?");
+        for(String s:fields){
+            sb.append(s).append(", ");
         }
+        //Elimina la última coma i el espai afegits en el bucle per tenir la sintaxi correcte
+        sb=sb.replace(sb.length()-2,sb.length(),"");
+
+        //sb.append(") VALUES (?");
+        sb.append(") VALUES (");
+
+        for (String s:fields) {
+            sb.append("?, ");
+        }
+        sb=sb.replace(sb.length()-2,sb.length(),"");
+
         sb.append(")");
-        // INSERT INTO User (ID, lastName, firstName, address, city) VALUES (0, ?, ?, ?,?)
+
         return sb.toString();
     }
 

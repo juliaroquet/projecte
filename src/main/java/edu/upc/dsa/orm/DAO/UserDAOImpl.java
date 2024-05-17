@@ -37,7 +37,7 @@ public class UserDAOImpl implements IUserDAO {
         int idUser = 1;
         try{
             session = FactorySession.openSession();
-            User user1 = new User(user.getName(), user.getSurname(), user.getPassword(), user.getUsername());
+            User user1 = new User(user.getIdUser(), user.getName(), user.getSurname(), user.getPassword(), user.getUsername());
             session.save(user1);
         }
         catch(Exception e){

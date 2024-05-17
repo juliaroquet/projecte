@@ -13,7 +13,7 @@ public interface StoreManager {
     //public List<User> getUsers();
     public Product getProduct(String id);
     public void deleteP(String id);
-    public void addProduct(String id,String name, String description, double price) throws ProductYaExiste;
+    public void addProduct(String id,String name, String description, double price, String imatge) throws ProductYaExiste;
     public void deleteProduct(Product product) throws ProductNoExiste;
     public boolean comprar(User user, Product product) throws ProductNoExiste, UserNoExiste;
     public List<Product> buyProduct(String username, String idProduct) throws ProductNoExiste, UserNoExiste;

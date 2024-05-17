@@ -1,13 +1,11 @@
 package edu.upc.dsa.models;
 
-import edu.upc.dsa.util.RandomUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
 
-        String idUser;
+        int idUser;
         String name;
         String surname;
         String username;
@@ -19,8 +17,9 @@ public class User {
 
 
 
-        public User(){ this.idUser = RandomUtils.getIdUser(); }
-        public User(String name, String surname, String username, String password){
+        public User(){ //this.idUser = RandomUtils.getIdUser();
+             }
+        public User(int idUser, String name, String surname, String username, String password){
             this.idUser = idUser;
             this.name = name;
             this.surname = surname;
@@ -32,11 +31,11 @@ public class User {
             this.food = 0;
         }
 
-    public String getIdUser() {
+    public int getIdUser() {
         return this.idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 

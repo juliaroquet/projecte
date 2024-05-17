@@ -49,6 +49,7 @@ public class UserManagerImpl implements UserManager{
 
     @Override
     public User loginUser(String username, String password) throws PasswordIncorrecteException, UserNotRegisteredException {
+
         User user = MapUsers.get(username);
         if(user != null){
             logger.info("L'usuari existeix");
@@ -94,14 +95,32 @@ public class UserManagerImpl implements UserManager{
     @Override
     public User getUser(String username) {
         logger.info("getUser("+username+")");
-        for (User p: this.listusers) {
-            if (p.getUsername().equals(username)) {
-                logger.info("getUser("+username+"): "+p);
-                return p;
+        for (User u: this.listusers) {
+            if (u.getUsername().equals(username)) {
+                logger.info("getUser("+username+"): "+ u);
+                return u;
             }
         }
         logger.warn("not found " + username);
         return null;
+    }
+
+    @Override
+    public User changeUsername(String username, String password, String newUsername) throws UserNotRegisteredException, PasswordIncorrecteException, UserNameYaExiste {
+        User user1 = MapUsers.get(newUsername);
+        if(listusers.contains(user1)){
+            logger.info("Aquest username ja s'esta utilitzant");
+            throw new UserNameYaExiste();
+        }
+        User user = getUser(username);
+        if (user != null) {
+            if(user.getPassword().equals(password)) {
+                user.setUsername(newUsername);
+                return user;
+            }
+            throw new PasswordIncorrecteException();
+        }
+        throw new UserNotRegisteredException();
     }
 
 

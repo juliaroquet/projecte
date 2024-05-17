@@ -85,8 +85,8 @@ public class StoreManagerImpl implements StoreManager{
 
 
     @Override
-    public void addProduct(String id,String name, String description, double price) throws ProductYaExiste {
-        Product p = new Product(id, name, description, price);
+    public void addProduct(String id,String name, String description, double price, String imatge) throws ProductYaExiste {
+        Product p = new Product(id, name, description, price, imatge);
         String idP = p.getIdProduct();
         logger.info("Comprovem que aquest producte no esta a la nostre llista");
         if(listproducts.contains(idP)){

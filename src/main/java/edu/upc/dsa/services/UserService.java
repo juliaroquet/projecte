@@ -28,8 +28,10 @@ import java.util.List;
         public UserService() throws UserNameYaExiste {
             this.um = UserManagerImpl.getInstance();
             if (um.getUsers().size()==0){
-                um.registerUser(new User("Laura","Fernandez","lauraa8","12345"));
-                um.registerUser(new User("Anna","Fernandez","annaa11","56789"));
+                um.registerUser(new User(1,"Laura","Fernandez","lauraa8","12345"));
+                um.registerUser(new User(2,"Anna","Fernandez","annaa11","56789"));
+                um.registerUser(new User(3,"Lidon","Garcia","lidon11","56789"));
+                um.registerUser(new User(4,"Lidia","Esquius","lidia22","12345"));
             }
 
         }
@@ -47,7 +49,7 @@ import java.util.List;
         public Response register(User user) throws UserNameYaExiste {
             //if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
             try{
-                this.um.registerUser(new User(user.getName(), user.getSurname(), user.getUsername(), user.getPassword()));
+                this.um.registerUser(new User(user.getIdUser(), user.getName(), user.getSurname(), user.getUsername(), user.getPassword()));
                 return Response.status(201).entity(user).build();
             }
             catch(UserNameYaExiste e){
@@ -129,6 +131,33 @@ import java.util.List;
                 return Response.status(201).entity(user1).build();
             }
             return Response.status(404).build();
+
+        }
+
+        @PUT
+        @ApiOperation(value = "update username", notes= "update the username from a user")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successfull"),
+                @ApiResponse(code = 404, message = "user not found"),
+                @ApiResponse(code = 502, message = "paswword incorretce"),
+                @ApiResponse(code = 501, message = "Username ya utilitzat, siusplau escriu un altre")
+        })
+        @Path("/updateUsername")
+        public Response updateUsername(@QueryParam("username") String username, @QueryParam("Password") String Password, @QueryParam("newUsername") String newUsername) throws UserNotRegisteredException, PasswordIncorrecteException {
+
+            try{
+                User user1 = this.um.changeUsername(username, Password, newUsername);
+                return Response.status(201).entity(user1).build();
+            }
+            catch(UserNotRegisteredException e){
+                return Response.status(404).entity(e.getMessage()).build();
+            }
+            catch(PasswordIncorrecteException e){
+                return Response.status(502).entity(e.getMessage()).build();
+            } catch (UserNameYaExiste e) {
+                return Response.status(501).entity(e.getMessage()).build();
+            }
+
 
         }
     }

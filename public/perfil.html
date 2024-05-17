@@ -12,13 +12,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <script>
-    function infoPersonal(name, surname, username, inventario, coins){
+    function infoPersonal(name, surname, username, coins, inventario){
         var contenidor =
             "<p>Nom: "+name+"</p>\n"+
             "<p>Cognom:"+surname+"</p>\n"+
             "<p>Nom usuari: "+username+"</p>\n"+
+            "<p>Coins: "+coins+"</p>\n"+
             "<p>Inventari: "+inventario+"</p>\n";
-            "<p>Coins: "+coins+"</p>\n";
+
 
         console.log(contenidor);
         return contenidor;
@@ -34,7 +35,7 @@
 
         var url = "dsaApp/user/getUser/"+username;
         $.get(url, function (data) {
-            var contenidor = infoPersonal( data.name, data.surname, data.username);
+            var contenidor = infoPersonal( data.name, data.surname, data.username, data.coins, data.inventario);
             console.log(contenidor);
             $("#user-info").append(contenidor);
         });
@@ -73,15 +74,37 @@
         <!-- Aquí es mostren dades user -->
     </div>
 
-    <hr>
-    <h3>Canviar Contrasenya</h3>
-    <div class="modal-change-password">
-
-        <p> Contrasenya Actual: <input type="password" id="current-password"></p>
-        <p> Nova Contrasenya: <input type="password" id="new-password"></p>
-        <button type="submit" class="btn btn-dark">Guardar Canvis</button>
+    <div class="jumbotron bg-light">
+        <h3>Vols canviar la teva contrasenya?</h3>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ModalUpdatePassword">Canvia la Contrasenya</button>
+        <!-- Modal -->
+        <div class="modal fade" id="ModalUpdatePassword" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Canvi de Contrasenya</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p> Contrasenya Actual: <input type="password" id="current-password"></p>
+                        <p> Nova Contrasenya: <input type="password" id="new-password"></p>
+                        <button type="submit" class="btn btn-dark">Guardar Canvis</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
+<!-- <div class="modal-change-password">
+
+     <p> Contrasenya Actual: <input type="password" id="current-password"></p>
+     <p> Nova Contrasenya: <input type="password" id="new-password"></p>
+     <button type="submit" class="btn btn-dark">Guardar Canvis</button>
+ </div>
+</div>-->
+

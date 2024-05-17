@@ -1,20 +1,20 @@
 package edu.upc.dsa.models;
 
-import edu.upc.dsa.util.RandomUtils;
-
 public class Product {
     String idProduct;
     String name;
     String description;
     double price;
+    String imatge;
 
     public Product(){ //this.idProduct = RandomUtils.getIdProduct();
          }
-    public Product(String idProduct, String name, String description, double price){
+    public Product(String idProduct, String name, String description, double price, String imatge){
         this.idProduct = idProduct;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.imatge = imatge;
     }
 
     public String getIdProduct() {
@@ -47,5 +47,11 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public String getImatge() {
+        return imatge;
+    }
+    public void setImatge(String imatge) {
+        this.imatge = imatge;
     }
 }

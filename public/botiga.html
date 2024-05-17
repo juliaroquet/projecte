@@ -14,18 +14,23 @@
     <script>
         $(document).ready(function(){
             function getProducts(){
-                $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status){
-                    txt ="";
+                $.get("http://localhost:8080/dsaApp/store/getStoreProducts", function(data, status) {
+                    // Limpiar la tabla de productos
                     $("#ProductosTienda tbody").empty();
-                    $.each(data, function(index, item){
-                        $("#ProductosTienda tbody").append(
-                            txt = '<tr><td>'+ item.name +
-                                '</td><td>' + item.idProduct +
-                                '</td><td>' + item.description +
-                                '</td><td>'+ item.price +
-                                '</td><td><button type="buttonBuy" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Comprar Producte</button>'+
-                                '</td><td>'
+                    // Recorrer la lista de productos y agregar cada uno a la tabla
+                    data.forEach(function (item) {
+                        // Crear un elemento de imagen con la URL del ítem
+                        var img = $("<img>").attr("src", item.imatge).attr("alt", "Imatge de l'ítem");
+                        // Creem una fila de la taula y omplim les celdas amb la info dels get
+                        var row = $("<tr>").append(
+                            $("<td>").text(item.name),
+                            $("<td>").text(item.idProduct),
+                            $("<td>").text(item.description),
+                            $("<td>").text(item.price),
+                            $("<td>").append(img) // Agreguem la imatge
                         );
+                        // Agreguem la fila creada a la taula
+                        $("#ProductosTienda tbody").append(row);
                     });
                 });
             }
@@ -42,7 +47,8 @@
                     idProduct: $('#idProduct').val(),
                     name: $('#nameProduct').val(),
                     description: $('#descriptionProduct').val(),
-                    price: $('#priceProduct').val()
+                    price: $('#priceProduct').val(),
+                    imatge: $('imatgeProduct').val()
                 };
 
                 var URL = "dsaApp/store/addProduct";
@@ -54,7 +60,6 @@
                     .done(function (data, status) {
                         alert("Producte afegit correctament");
                         getProducts();
-
                     })
                     .fail(function (xhr, err) {
                         alert("El producte ja existeix");
@@ -151,6 +156,7 @@
                     <p>Id: <input type="text" id="idProduct"></p>
                     <p>Descripció: <input type="text" id="descriptionProduct"></p>
                     <p>Preu: <input type="text" id="priceProduct"></p>
+                    <p>Imatge: <input type="text" id="imatgeProduct"></p>
                     <button id="buttonGuardar" class="btn btn-light" data-dismiss="modal" onClick="addProduct">Guardar</button>
 
                 </div>

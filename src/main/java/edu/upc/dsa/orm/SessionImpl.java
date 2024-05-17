@@ -19,29 +19,64 @@ public class SessionImpl implements Session {
 
     public void save(Object entity) {
 
-
-        // INSERT INTO Partida () ()
+        //Preparem una consulta SQL Insert
         String insertQuery = QueryHelper.createQueryINSERT(entity);
-        // INSERT INTO User (ID, lastName, firstName, address, city) VALUES (0, ?, ?, ?,?)
 
-
+        //Preparem el camp per escriure la consulta
         PreparedStatement pstm = null;
 
         try {
             pstm = conn.prepareStatement(insertQuery);
-            pstm.setObject(1, 0);
-            int i = 2;
-
-            for (String field: ObjectHelper.getFields(entity)) {
+            int i = 1;
+            //Omple els camps de la consulta
+            for (String field : ObjectHelper.getFields(entity)) {
                 pstm.setObject(i++, ObjectHelper.getter(entity, field));
             }
 
+            //Executa la consulta
             pstm.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+    @Override
+    public Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue) {
+        String selectQuery = QueryHelper.createQuerySELECTbyTwoParameters(theClass, (String) byFirstParameterValue, (String) bySecondParameterValue);
+
+
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+
+        try {
+            Object object = theClass.getDeclaredConstructor().newInstance();
+
+            pstm = conn.prepareStatement(selectQuery);
+
+            pstm.setObject(1, byFirstParameter);
+            pstm.setObject(2, bySecondParameter);
+            pstm.executeQuery();
+            rs = pstm.getResultSet();
+
+            if (rs.next()) {
+
+                rsmd = rs.getMetaData();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    String field = rsmd.getColumnName(i);
+                    ObjectHelper.setter(object, field, rs.getObject(i));
+                }
+                return object;
+
+            } else {
+                return null;
+            }
+
+        } catch (SQLException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void close() {
@@ -123,43 +158,7 @@ public class SessionImpl implements Session {
     }
 
 
-   @Override
-    public Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue) {
-        String selectQuery = QueryHelper.createQuerySELECTbyTwoParameters(theClass, (String) byFirstParameterValue, (String) bySecondParameterValue);
 
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        ResultSetMetaData rsmd = null;
-
-        try {
-            Object object = theClass.getDeclaredConstructor().newInstance();
-
-            pstm = conn.prepareStatement(selectQuery);
-
-            pstm.setObject(1, byFirstParameter);
-            pstm.setObject(2, bySecondParameter);
-            pstm.executeQuery();
-            rs = pstm.getResultSet();
-
-            if (rs.next()) {
-
-                rsmd = rs.getMetaData();
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    String field = rsmd.getColumnName(i);
-                    ObjectHelper.setter(object, field, rs.getObject(i));
-                }
-                return object;
-
-            } else {
-                return null;
-            }
-
-        } catch (SQLException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public List<Object> findAll(Class theClass, HashMap params) throws SQLException {
        String theQuery = QueryHelper.createSelectFindAll(theClass, params);

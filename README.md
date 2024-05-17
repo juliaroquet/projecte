@@ -1,31 +1,47 @@
 # projecte #
 
---------26/04/2024------------------------------------
+----------------------26/04/2024-------------------------------------
+
 Login + Registre funcionen
 
---------26/04/2024------------------------------------
+----------------------26/04/2024-------------------------------------
+
 Login + Registre + llistat de productes funcionen
 
---------27/04/2024------------------------------------
+----------------------27/04/2024-------------------------------------
+
 Login amb la classe credencials creada
 
---------28/04/2024------------------------------------
-Funcions de la API de la botiga funcionant:
-	- afegir producte
-	- borrar producte
-	- mostrar producte per id
+----------------------28/04/2024-------------------------------------
 
---------30/04/2024------------------------------------
+Funcions de la API de la botiga funcionant:
+- afegir producte
+- borrar producte
+- mostrar producte per id
+
+-----------------------30/04/2024------------------------------------
+
 Igual, amb ip maquina
 
---------5/05/2024-------------------------------------
+------------------------5/05/2024-------------------------------------
+
 Afegides classes per implementar BBDD
 
---------9/05/2024-------------------------------------
+------------------------9/05/2024-------------------------------------
+
 Partida y mapa Services ambas funcions GET i ADD
 
---------10/05/2024------------------------------------
+-----------------------10/05/2024------------------------------------
+
 Funcions de login I register amb BBDD, falta probarles
 
---------15/05/2024------------------------------------
+-----------------------15/05/2024------------------------------------
+
 Funcions de compra en la API funcionant
+
+-----------------------16/05/2024------------------------------------
+
+- Funcio update username implementada a la API
+- canvis a funcions login+registre a BBDD
+- Pagina web: perfil.htm es mostren els coins i l'inventari(falta millorar)
+
