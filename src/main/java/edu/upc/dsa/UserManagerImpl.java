@@ -75,8 +75,9 @@ public class UserManagerImpl implements UserManager{
     @Override
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException {
         User user = MapUsers.get(username);
-        List<Product> inventario = user.getInventario();
-        return inventario;
+        //List<Product> inventario = user.getInventario();
+        //return inventario;
+        return null;
     }
 
     @Override

@@ -32,21 +32,30 @@ public class UserDAOImpl implements IUserDAO {
         return ret;
     }
     @Override
-    public int registerUser(User user)  {
-        Session session = null;
-        int idUser = 1;
-        try{
-            session = FactorySession.openSession();
-            User user1 = new User(user.getIdUser(), user.getName(), user.getSurname(), user.getPassword(), user.getUsername());
-            session.save(user1);
+    public User registerUser(User user)  {
+        logger.info("Registrem User " + user);
+        int i = 0;
+        for(User u : this.listusers) {
+            if(u.getUsername().equals(user.getUsername())){
+                i = 1;
+                break;
+            }
         }
-        catch(Exception e){
+        if(i == 0){
+            Session session = null;
+            try {
+                session = FactorySession.openSession();
+                session.save(user);
 
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            this.listusers.add(user);
+            logger.info("usuari afegit");
+            return user;
         }
-        finally{
-            session.close();
-        }
-        return idUser;
+       else
+           return null;
 
     }
 

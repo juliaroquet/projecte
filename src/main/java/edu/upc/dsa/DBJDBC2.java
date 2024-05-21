@@ -11,12 +11,17 @@ public class DBJDBC2 extends DBJDBC{
         Connection connection = DBUtils.getConnection();
 
         // SQL INJECTION
-        String theQuery = "INSERT INTO User (id, name) VALUES (0, ?)";
+        String theQuery = "INSERT INTO User (idUser, name, surname, username, password, coins, fuel, food) VALUES (0, ?,?,?,?,?,?,?)";
         // log.debug
 
         PreparedStatement statement1  =  connection.prepareStatement(theQuery);
-        statement1.setString(1, "Lidia");
-
+        statement1.setString(1, "Laura");
+        statement1.setString(2, "Esquius");
+        statement1.setString(3, "lidia2");
+        statement1.setString(4, "12345");
+        statement1.setInt(5, 50);
+        statement1.setInt(6, 45);
+        statement1.setInt(7, 17);
 
         // a = b / 0  - null.method();
 

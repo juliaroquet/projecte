@@ -10,7 +10,7 @@ public class User {
         String surname;
         String username;
         String password;
-        List<Product> inventario;
+        //List<Product> inventario;
         double coins;
         int fuel;
         int food;
@@ -25,7 +25,7 @@ public class User {
             this.surname = surname;
             this.username = username;
             this.password = password;
-            this.inventario = new ArrayList<Product>();
+            //this.inventario = new ArrayList<Product>();
             this.coins = 100;
             this.fuel = 0;
             this.food = 0;
@@ -70,13 +70,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Product> getInventario() {
+    /*public List<Product> getInventario() {
             return inventario;
     }
 
     public void setInventario(List<Product> inventario) {
         this.inventario = inventario;
     }
+
+     */
 
     public double getCoins() {
         return coins;

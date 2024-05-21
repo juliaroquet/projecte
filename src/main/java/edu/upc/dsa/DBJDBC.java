@@ -68,14 +68,28 @@ public class DBJDBC {
                 i++;
             }
 
-            int id;
+            int idUser;
             String name;
+            String surname;
+            String username;
+            String password;
+            double coins;
+            int fuel;
+            int food;
+
 
             while (rs.next()) {
-                id = (Integer) rs.getObject(1); // 0
+                idUser = (Integer) rs.getObject(1); // 0
                 name = (String) rs.getObject(2);
+                surname = (String) rs.getObject(3);
+                username = (String) rs.getObject(4);
+                password = (String) rs.getObject(5);
+                coins = (double) rs.getObject(6);
+                fuel = (int) rs.getObject(7);
+                food = (int) rs.getObject(8);
 
-                System.out.println(id+" "+name);
+
+                System.out.println(idUser+" "+name+surname+username+password+coins+fuel+food);
 
                 // Per cada propietat dins de la fila:
                 // while (j<=rsmd.getNumColumn()) {

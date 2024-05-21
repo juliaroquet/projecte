@@ -118,7 +118,7 @@ public class StoreManagerImpl implements StoreManager{
         if(listproducts.contains(product) & users.contains(user)){
             logger.info("Item comprat");
             comprado = true;
-            user.getInventario().add(product);
+            //user.getInventario().add(product);
             user.setCoins(coinsTotals);
             return comprado;
         }
@@ -141,10 +141,11 @@ public class StoreManagerImpl implements StoreManager{
             double coins = user.getCoins();
             double cost = product.getPrice();
             double coinsTotals = coins - cost;
-            user.getInventario().add(product);
+            //user.getInventario().add(product);
             user.setCoins(coinsTotals);
-            List<Product> inventario = user.getInventario();
-            return inventario;
+            //List<Product> inventario = user.getInventario();
+            return null;
+            //return inventario;
 
         } else if (!listproducts.contains(getProduct(idProduct))) {
             logger.info("El producte no existeix");

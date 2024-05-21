@@ -9,16 +9,33 @@ import java.util.Set;
 public class QueryHelper {
     final static Logger logger = Logger.getLogger(QueryHelper.class);
     public static String createQueryINSERT(Object entity) {
-
         StringBuffer sb = new StringBuffer("INSERT INTO ");
         sb.append(entity.getClass().getSimpleName()).append(" ");
         sb.append("(");
 
-        //Obté a classe del objecte
-        Class theClass = entity.getClass();
+        String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
+
+        sb.append("idUser");
+        for (String field: fields) {
+            if (!field.equals("idUser")) sb.append(", ").append(field);
+        }
+        sb.append(") VALUES (?");
+
+        for (String field: fields) {
+            if (!field.equals("idUser"))  sb.append(", ?");
+        }
+        sb.append(")");
+        // INSERT INTO User (ID, lastName, firstName, address, city) VALUES (0, ?, ?, ?,?)
+        return sb.toString();
+
+
+        /*
+        StringBuffer sb = new StringBuffer("INSERT INTO ");
+        sb.append(entity.getClass().getSimpleName()).append(" ");
+        sb.append("(");
 
         //Obté els camps de la classe
-        String [] fields = ObjectHelper.getFields(entity);
+        String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
 
         for(String s:fields){
             sb.append(s).append(", ");
@@ -37,6 +54,10 @@ public class QueryHelper {
         sb.append(")");
 
         return sb.toString();
+
+         */
+
+
     }
 
     public static String createQuerySELECT(Object entity) {

@@ -8,7 +8,7 @@ import edu.upc.dsa.models.User;
 import java.util.List;
 
 public interface IUserDAO {
-    public int registerUser(User user);
+    public User registerUser(User user);
     public User loginUser(String username, String password) throws PasswordIncorrecteException, UserNotRegisteredException;
     public List<User> getUsers();
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException;

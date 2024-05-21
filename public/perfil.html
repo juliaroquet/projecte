@@ -15,7 +15,7 @@
     function infoPersonal(name, surname, username, coins, inventario){
         var contenidor =
             "<p>Nom: "+name+"</p>\n"+
-            "<p>Cognom:"+surname+"</p>\n"+
+            "<p>Cognom: "+surname+"</p>\n"+
             "<p>Nom usuari: "+username+"</p>\n"+
             "<p>Coins: "+coins+"</p>\n"+
             "<p>Inventari: "+inventario+"</p>\n";
@@ -74,16 +74,15 @@
         <!-- Aquí es mostren dades user -->
     </div>
 
-    <div class="jumbotron bg-light">
         <h3>Vols canviar la teva contrasenya?</h3>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ModalUpdatePassword">Canvia la Contrasenya</button>
-        <!-- Modal -->
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#ModalUpdatePassword">Canvia la Contrasenya</button>
+
         <div class="modal fade" id="ModalUpdatePassword" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title text-center">Canvi de Contrasenya</h4>
+                        <h4 class="modal-title">Canvi de Contrasenya</h4>
+                        <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <p> Contrasenya Actual: <input type="password" id="current-password"></p>
@@ -91,12 +90,13 @@
                         <button type="submit" class="btn btn-dark">Guardar Canvis</button>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="Botiga">Botiga</button>
+
 </div>
 </body>
 </html>

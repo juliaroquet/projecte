@@ -18,6 +18,30 @@ public class SessionImpl implements Session {
     }
 
     public void save(Object entity) {
+// INSERT INTO Partida () ()
+        String insertQuery = QueryHelper.createQueryINSERT(entity);
+        // INSERT INTO User (ID, lastName, firstName, address, city) VALUES (0, ?, ?, ?,?)
+
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = conn.prepareStatement(insertQuery);
+            pstm.setObject(1, 0);
+            int i = 1;
+
+            for (String field: ObjectHelper.getFields(entity)) {
+                pstm.setObject(i++, ObjectHelper.getter(entity, field));
+            }
+
+            pstm.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+        /*
 
         //Preparem una consulta SQL Insert
         String insertQuery = QueryHelper.createQueryINSERT(entity);
@@ -40,7 +64,9 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
 
-    }
+
+         */
+
     @Override
     public Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue) {
         String selectQuery = QueryHelper.createQuerySELECTbyTwoParameters(theClass, (String) byFirstParameterValue, (String) bySecondParameterValue);
