@@ -20,7 +20,7 @@
                     // Recorrer la lista de productos y agregar cada uno a la tabla
                     data.forEach(function (item) {
                         // Crear un elemento de imagen con la URL del ítem
-                        var img = $("<img>").attr("src", item.imatge).attr("alt", "Imatge de l'ítem");
+                        var img = $("<img>").attr("src", item.imatge).attr("class", "imagen-redimensionada");
                         // Creem una fila de la taula y omplim les celdas amb la info dels get
                         var row = $("<tr>").append(
                             $("<td>").text(item.name),
@@ -97,6 +97,12 @@
 
             .btn {
                 margin: 20px; /*Agrega espai entre botons*/
+            }
+
+            .imagen-redimensionada {
+                width: 300px;
+                height: 200px;
+                object-fit: cover;
             }
 
             .table {

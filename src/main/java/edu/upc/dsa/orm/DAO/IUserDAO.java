@@ -11,6 +11,7 @@ public interface IUserDAO {
     public User registerUser(User user);
     public User loginUser(String username, String password) throws PasswordIncorrecteException, UserNotRegisteredException;
     public List<User> getUsers();
+    public User getUser(String username);
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException;
     //public void comprar(User user, Product product) throws ProductNoExiste, UserNoExiste;
 

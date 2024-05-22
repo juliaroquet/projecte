@@ -2,10 +2,6 @@ package edu.upc.dsa.orm.util;
 
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 public class QueryHelper {
     final static Logger logger = Logger.getLogger(QueryHelper.class);
     public static String createQueryINSERT(Object entity) {
@@ -60,24 +56,19 @@ public class QueryHelper {
 
     }
 
-    public static String createQuerySELECT(Object entity) {
+    public static String createQuerySELECT(Class theClass, String row) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
-        sb.append(" WHERE ID = ?");
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append(" WHERE " + row + " = ?");
 
         return sb.toString();
     }
 
 
-    public static String createSelectFindAll(Class theClass, HashMap<String, String> params) {
+    public static String createSelectFindAll(Class theClass) {
 
-        Set<Map.Entry<String, String>> set = params.entrySet();
-
-        StringBuffer sb = new StringBuffer("SELECT * FROM "+theClass.getSimpleName()+" WHERE 1=1");
-        for (String key: params.keySet()) {
-            sb.append(" AND "+key+"=?");
-        }
-
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
 
         return sb.toString();
     }

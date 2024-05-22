@@ -1,6 +1,5 @@
 package edu.upc.dsa.services;
 
-import edu.upc.dsa.UserManagerImpl;
 import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
@@ -15,8 +14,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/userBBDD", description = "Endpoint to User Service")
 @Path("/userBBDD")
@@ -40,9 +41,9 @@ public class UserDAOService {
     }
 
     @GET
-    @Path("/reg2/{name}/{surname}")
-    public Response register2(@PathParam("name") String name, @PathParam("surname") String surname) {
-        User u = new User(0,name, surname, "tonipro", "12345");
+    @Path("/reg2/{name}/{surname}/{username}/{password}")
+    public Response register2(@PathParam("name") String name, @PathParam("surname") String surname, @PathParam("username") String username, @PathParam("password") String password) {
+        User u = new User(0,name, surname, username, password);
 
         if(u.getUsername()==null || u.getPassword()==null) {
             return Response.status(501).entity(u).build();
@@ -74,16 +75,6 @@ public class UserDAOService {
             return Response.status(404).build();
         else
             return Response.status(201).entity(u).build();
-       /* //if (user.getName() == null || user.getSurname()==null || user.getPassword()== null || user.getUsername() == null)  return Response.status(500).entity(user).build();
-        try{
-            this.um.registerUser(new User(user.getIdUser(), user.getName(), user.getSurname(), user.getUsername(), user.getPassword()));
-            return Response.status(201).entity(user).build();
-        }
-        catch(Exception e){
-            return Response.status(404).entity(user).build();
-        }
-
-        */
 
     }
 
@@ -102,6 +93,33 @@ public class UserDAOService {
             return Response.status(201).entity(user1).build();
         }
         return Response.status(404).entity(user1).build();
+    }
+    @GET
+    @ApiOperation(value = "get User", notes = "get a user from the username")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = User.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @Path("/getUser/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUser(@PathParam("username") String username) {
+        User user = this.um.getUser(username);
+        if(user==null) return Response.status(404).build();
+        else return Response.status(200).entity(user).build();
+    }
+
+    @GET
+    @ApiOperation(value = "get Users", notes = "get a users from BBDD")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = User.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @Path("/getUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsers() {
+        List<User> lu = this.um.getUsers();
+        GenericEntity<List<User>> entity = new GenericEntity<List<User>>(lu) {};
+        return Response.status(201).entity(entity).build()  ;
     }
 
 }

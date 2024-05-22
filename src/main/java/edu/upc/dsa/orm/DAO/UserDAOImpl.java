@@ -33,7 +33,7 @@ public class UserDAOImpl implements IUserDAO {
     }
     @Override
     public User registerUser(User user)  {
-        logger.info("Registrem User " + user);
+        /*logger.info("Registrem User " + user);
         int i = 0;
         for(User u : this.listusers) {
             if(u.getUsername().equals(user.getUsername())){
@@ -42,20 +42,35 @@ public class UserDAOImpl implements IUserDAO {
             }
         }
         if(i == 0){
+
+         */
             Session session = null;
             try {
                 session = FactorySession.openSession();
                 session.save(user);
+                this.listusers.add(user);
+                logger.info("usuari afegit");
+                return user;
 
             } catch (Exception e){
                 e.printStackTrace();
             }
-            this.listusers.add(user);
+            finally {
+                session.close();
+            }
+            return null;
+            /*this.listusers.add(user);
             logger.info("usuari afegit");
             return user;
         }
        else
-           return null;
+
+             */
+
+
+
+
+
 
     }
 
@@ -96,6 +111,25 @@ public class UserDAOImpl implements IUserDAO {
            session.close();
        }
        return listusers;
+    }
+
+    @Override
+    public User getUser(String username) {
+        Session session = null;
+
+        try {
+            session = FactorySession.openSession();
+            User user = (User) session.get(User.class, "username", username);
+            logger.info("getUser(" + username + "): " + user);
+            return user;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        logger.info("not found " + username);
+        return null;
+
     }
 
     @Override

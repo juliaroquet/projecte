@@ -27,8 +27,8 @@ public class StoreService {
         this.sm = StoreManagerImpl.getInstance();
         this.um = UserManagerImpl.getInstance();
         if(sm.getProducts().size()==0){
-            sm.addProduct("1","Martillo","Tool to save the alien",15, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fminecraft.fandom.com%2Fes%2Fwiki%2FPico&psig=AOvVaw3-jLg5GOdxaIN8i9RWIBb_&ust=1715993229353000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMDGg4m7k4YDFQAAAAAdAAAAABAI");
-            sm.addProduct("2","Pico","Tool to save the alien",20, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fminecraft.fandom.com%2Fes%2Fwiki%2FDungeons%3AGreat_Hammer&psig=AOvVaw3D9XlaFbihzNFijGj4e7Gj&ust=1715993289923000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJC5iaa7k4YDFQAAAAAdAAAAABAE");
+            sm.addProduct("1","Martillo","Tool to save the alien",15, "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/25/Mjolnir.png");
+            sm.addProduct("2","Pico","Tool to save the alien",20, "https://cdn-icons-png.flaticon.com/512/4813/4813227.png");
             um.registerUser(new User(1,"Laura", "Fernandez", "lauraa8", "12345"));
             um.registerUser(new User(2,"Anna", "Fernandez", "annaa11", "56789"));
         }

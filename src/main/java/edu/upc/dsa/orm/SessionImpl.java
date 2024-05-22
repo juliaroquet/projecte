@@ -6,7 +6,7 @@ import edu.upc.dsa.orm.util.QueryHelper;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -105,6 +105,8 @@ public class SessionImpl implements Session {
         }
     }
 
+
+
     public void close() {
         try {
             conn.close();
@@ -114,62 +116,36 @@ public class SessionImpl implements Session {
         }
     }
 
-    @Override
-    public Object get(Class theClass, Object ID) {
-        return null;
-    }
 
     @Override
-    public Object get(Object entity, Hashtable table) {
-        /*String selectQuery = QueryHelper.createQuerySELECT(entity,table);
+    public Object get(Class theClass, String column, Object entity) throws SQLException, InstantiationException, IllegalAccessException {
+        String selectQuery = QueryHelper.createQuerySELECT(theClass, column);
         PreparedStatement pstm = null;
-        List<Object> ListObject = new ArrayList<Object>();
-        try {
-            pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(1, 1);
-            pstm.executeQuery();
-            ResultSet rs = pstm.getResultSet();
-            while (rs.next()) {
-                Class clase = entity.getClass();
-                Object o = clase.newInstance();
-                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++)
-                    ObjectHelper.setter(o, rs.getMetaData().getColumnName(i), rs.getObject(i));
-                ListObject.add(o);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        return ListObject;*/
-        return null;
-    }
-
-    public Object get(Class theClass, int ID) throws InstantiationException, IllegalAccessException, SQLException {
-
-        String sql = QueryHelper.createQuerySELECT(theClass);
+        pstm = conn.prepareStatement(selectQuery);
+        pstm.setObject(1, entity);
+        ResultSet rs = pstm.executeQuery();
 
         Object o = theClass.newInstance();
 
+        if (!rs.next()) {
+            // No records found
+            o = null;
+        } else{
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int numberOfColumns = rsmd.getColumnCount();
 
-        ResultSet res = null;
-
-        ResultSetMetaData rsmd = res.getMetaData();
-
-        int numColumns = rsmd.getColumnCount();
-        int i=0;
-
-        while (i<numColumns) {
-            String key = rsmd.getColumnName(i);
-            String value = (String) res.getObject(i);
-            ObjectHelper.setter(o, key, value);
-
+            do {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    String columnName = rsmd.getColumnName(i);
+                    ObjectHelper.setter(o, columnName, rs.getObject(i));
+                }
+            } while (rs.next());
         }
-        return null;
+
+        return o;
     }
+
+
 
     public void update(Object object) {
 
@@ -180,30 +156,37 @@ public class SessionImpl implements Session {
     }
 
     public List<Object> findAll(Class theClass) {
-        return null;
-    }
-
-
-
-
-    public List<Object> findAll(Class theClass, HashMap params) throws SQLException {
-       String theQuery = QueryHelper.createSelectFindAll(theClass, params);
+        String query = QueryHelper.createSelectFindAll(theClass);
         PreparedStatement pstm = null;
-        pstm = conn.prepareStatement(theQuery);
+        ResultSet rs;
+        List<Object> list = new LinkedList<>();
+        try {
+            pstm = conn.prepareStatement(query);
+            pstm.executeQuery();
+            rs = pstm.getResultSet();
 
-        int i=1;
-        for (Object value : params.values()) {
-            pstm.setObject(i++, value );
+            ResultSetMetaData metadata = rs.getMetaData();
+            int numberOfColumns = metadata.getColumnCount();
+
+            while (rs.next()){
+                Object o = theClass.newInstance();
+                for (int j=1; j<=numberOfColumns; j++){
+                    String columnName = metadata.getColumnName(j);
+                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+                }
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-        //ResultSet rs = pstm.executeQuery();
-
-
-
-
-        return null;
-
-
+        return list;
     }
+
+
 
     public List<Object> query(String query, Class theClass, HashMap params) {
         return null;
