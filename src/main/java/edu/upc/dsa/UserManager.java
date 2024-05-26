@@ -14,7 +14,7 @@ public interface UserManager {
     public List<User> getUsers();
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException;
     //public void comprar(User user, Product product) throws ProductNoExiste, UserNoExiste;
-    public User changePassword(String username, String newPassword) throws UserNotRegisteredException;
+    public User changePassword(String username,String currentPassword, String newPassword) throws UserNotRegisteredException;
     public User getUser (String username);
     public User changeUsername(String username, String password, String newUsername) throws UserNotRegisteredException, PasswordIncorrecteException, UserNameYaExiste;
 }

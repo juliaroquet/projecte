@@ -123,14 +123,16 @@ import java.util.List;
                 @ApiResponse(code = 201, message = "Successfull"),
                 @ApiResponse(code = 404, message = "user not found")
         })
-        @Path("/changePaswword")
-        public Response changePassword(@QueryParam("username") String username, @QueryParam("newPassword") String newPassword) throws UserNotRegisteredException {
-            User u = this.um.getUser(username);
-            User user1 = this.um.changePassword(username, newPassword);
-            if(user1 != null){
+        @Path("/changePassword")
+        public Response changePassword(@QueryParam("username") String username, @QueryParam("currentPassword") String currentPassword, @QueryParam("newPassword") String newPassword) throws UserNotRegisteredException {
+            try{
+                User user1 = this.um.changePassword(username, currentPassword, newPassword);
                 return Response.status(201).entity(user1).build();
             }
-            return Response.status(404).build();
+            catch(UserNotRegisteredException e){
+                return Response.status(404).build();
+            }
+
 
         }
 

@@ -13,6 +13,7 @@ public interface IUserDAO {
     public List<User> getUsers();
     public User getUser(String username);
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException;
+    public User changePassword(String username, String oldPassword, String newPassword) throws PasswordIncorrecteException, UserNotRegisteredException;
     //public void comprar(User user, Product product) throws ProductNoExiste, UserNoExiste;
 
 }

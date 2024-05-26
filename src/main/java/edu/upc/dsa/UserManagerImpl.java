@@ -81,9 +81,9 @@ public class UserManagerImpl implements UserManager{
     }
 
     @Override
-    public User changePassword(String username, String newPassword) throws UserNotRegisteredException {
+    public User changePassword(String username, String currentPassword, String newPassword) throws UserNotRegisteredException {
         User user = MapUsers.get(username);
-        if(user != null){
+        if(user.getPassword().equals(currentPassword)){
             user.setPassword(newPassword);
             return user;
         }

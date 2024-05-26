@@ -1,7 +1,6 @@
 package edu.upc.dsa.services;
 
 import edu.upc.dsa.exceptions.PasswordIncorrecteException;
-import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.Credencials;
 import edu.upc.dsa.models.Register;
@@ -80,7 +79,7 @@ public class UserDAOService {
             @ApiResponse(code = 404, message = "The password is incorrect"),
 
     })
-    @Path("/login/")
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(Credencials credencials)  throws PasswordIncorrecteException, UserNotRegisteredException {
         User user1 = this.um.loginUser(credencials.username, credencials.password);

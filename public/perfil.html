@@ -35,8 +35,9 @@
         var inventario = localStorage.getItem('inventario');
 
          */
-        var username = localStorage.getItem('username')
-        alert("user: "+username);
+        var username = localStorage.getItem('username');
+        var password = localStorage.getItem('password');
+
 
         var URL = "dsaApp/userBBDD/getUser/"+username;
         $.get({
@@ -60,6 +61,8 @@
 
 
 
+
+
         /*var url = "dsaApp/userBBDD/getUser/"+username;
         $.get(url, function (data) {
             var name = data.name
@@ -75,23 +78,35 @@
 
 
         // Agrega aquí tu código para manejar el formulario de cambio de contraseña
-        $('#change-password-').submit(function(event) {
-            event.preventDefault(); // Evitar que el formulario se envíe de manera convencional
+        $('#btnChangePass').click(function() {
 
-            // Aquí puedes agregar la lógica para cambiar la contraseña
-            var currentPassword = $('#current-password').val();
-            var newPassword = $('#new-password').val();
+            var userData = {
+                username: username,
+                currentPassword: $('#current-password').val(),
+                newPassword: $('#new-password').val(),
+            }
 
-            // Ejemplo de cómo puedes enviar la nueva contraseña al servidor mediante AJAX
-            $.post('cambiar_contraseña.php', {currentPassword: currentPassword, newPassword: newPassword})
-                .done(function(response) {
-                    alert('Contrasenya canviada correctament');
-                    // Puedes redirigir a otra página o hacer cualquier otra acción necesaria después de cambiar la contraseña
+            var URL = "dsaApp/user/changePassword";
+
+            $.post({
+                url: URL,
+                data: JSON.stringify(userData),
+                contentType: 'application/json; charset=utf-8'
+            })
+                .done(function (data, status) {
+                    alert("Canvi de contrasenya correcte!" );
                 })
-                .fail(function() {
-                    alert('Ha hagut un error');
-                });
+                .fail(function (xhr, err) {
+                    alert("No s'ha pogut canviar de contrasenya :(");
+                    location.reload();
+                })
         });
+
+        //Butó per redirigir-nos a la botiga
+        $('#buttonStore').click(function() {
+            botiga();
+        });
+
     });
 
 </script>
@@ -120,7 +135,7 @@
                     <div class="modal-body">
                         <p> Contrasenya Actual: <input type="password" id="current-password"></p>
                         <p> Nova Contrasenya: <input type="password" id="new-password"></p>
-                        <button type="submit" class="btn btn-dark">Guardar Canvis</button>
+                        <button id="btnChangePass" type="button" class="btn btn-dark">Guardar Canvis</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
@@ -128,7 +143,7 @@
                 </div>
             </div>
         </div>
-    <button onclick="botiga()" id="buttonLogIn" class="btn btn-dark" >Botiga</button>
+    <button  id="buttonStore" type="button" class="btn btn-dark" >Botiga</button>
 
 
 </div>

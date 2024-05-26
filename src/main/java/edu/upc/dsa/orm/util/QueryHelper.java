@@ -11,6 +11,8 @@ public class QueryHelper {
 
         String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
 
+        //idUser primary key, I think we should change it to username, but then when we need to do
+        //an instert for the inventori the primary key should also be the idUser
         sb.append("idUser");
         for (String field: fields) {
             if (!field.equals("idUser")) sb.append(", ").append(field);
@@ -23,35 +25,6 @@ public class QueryHelper {
         sb.append(")");
         // INSERT INTO User (ID, lastName, firstName, address, city) VALUES (0, ?, ?, ?,?)
         return sb.toString();
-
-
-        /*
-        StringBuffer sb = new StringBuffer("INSERT INTO ");
-        sb.append(entity.getClass().getSimpleName()).append(" ");
-        sb.append("(");
-
-        //Obté els camps de la classe
-        String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
-
-        for(String s:fields){
-            sb.append(s).append(", ");
-        }
-        //Elimina la última coma i el espai afegits en el bucle per tenir la sintaxi correcte
-        sb=sb.replace(sb.length()-2,sb.length(),"");
-
-        //sb.append(") VALUES (?");
-        sb.append(") VALUES (");
-
-        for (String s:fields) {
-            sb.append("?, ");
-        }
-        sb=sb.replace(sb.length()-2,sb.length(),"");
-
-        sb.append(")");
-
-        return sb.toString();
-
-         */
 
 
     }
@@ -78,6 +51,26 @@ public class QueryHelper {
         sb.append(theClass.getSimpleName());
         sb.append(" WHERE " + byFirstParameter + " = ?");
         sb.append(" AND " + bySecondParameter + " = ?");
+
+        return sb.toString();
+    }
+    public static String createQueryUPDATE(Object entity, String row) {
+        StringBuffer sb = new StringBuffer("UPDATE ");
+        sb.append(entity.getClass().getSimpleName()).append(" SET ");
+
+        String[] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
+
+        boolean firstField = true;
+        for (String field: fields) {
+            if (!field.equals(row)) {
+                if (!firstField) {
+                    sb.append(", ");
+                }
+                sb.append(field).append(" = ?");
+                firstField = false;
+            }
+        }
+        sb.append(" WHERE ").append(row).append(" = ?");
 
         return sb.toString();
     }

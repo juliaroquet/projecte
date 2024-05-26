@@ -1,7 +1,9 @@
 package edu.upc.dsa.orm.DAO;
 
 import edu.upc.dsa.UserManagerImpl;
+import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
+import edu.upc.dsa.models.Inventario;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
 import edu.upc.dsa.orm.FactorySession;
@@ -33,17 +35,7 @@ public class UserDAOImpl implements IUserDAO {
     }
     @Override
     public User registerUser(User user)  {
-        /*logger.info("Registrem User " + user);
-        int i = 0;
-        for(User u : this.listusers) {
-            if(u.getUsername().equals(user.getUsername())){
-                i = 1;
-                break;
-            }
-        }
-        if(i == 0){
 
-         */
             Session session = null;
             try {
                 session = FactorySession.openSession();
@@ -59,18 +51,6 @@ public class UserDAOImpl implements IUserDAO {
                 session.close();
             }
             return null;
-            /*this.listusers.add(user);
-            logger.info("usuari afegit");
-            return user;
-        }
-       else
-
-             */
-
-
-
-
-
 
     }
 
@@ -134,6 +114,28 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException {
+        return null;
+    }
+
+    @Override
+    public User changePassword(String username, String oldPassword, String newPassword) throws PasswordIncorrecteException, UserNotRegisteredException {
+        Session session = null;
+        User user = null;
+        try{
+            session = FactorySession.openSession();
+            user = (User) session.update(Inventario.class, username);
+            if (user!=null) {
+                logger.info(user + " rebut!");
+                return user;
+            }
+        }
+        catch (Exception e) {
+            logger.warn("not found "+ user);
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
         return null;
     }
 

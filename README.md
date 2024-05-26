@@ -45,3 +45,18 @@ Funcions de compra en la API funcionant
 - canvis a funcions login+registre a BBDD
 - Pagina web: perfil.htm es mostren els coins i l'inventari(falta millorar)
 
+-----------------------26/05/2024------------------------------------
+
+Funcions BBDD Store:
+- getProduct(int id)
+- getProducts()
+- buyProduct(Inventario) --> he creat un model inventari per eficiencia
+
+StoreDAOService:
+- getProduct(int id)
+- getProducts()
+- buyProduct(Inventario)
+
+Funcions BBDD Store:
+- changePassword --> no funciona, cal revisar funció UPDATE
+

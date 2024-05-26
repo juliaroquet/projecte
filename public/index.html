@@ -18,8 +18,8 @@
             }
 
             $('#buttonLogIn').click(function() {
-                var username = $('#userLogIn').val();
-                var password = $('#passwLogIn').val();
+                //var username = $('#userLogIn').val();
+                //var password = $('#passwLogIn').val();
 
                 var userData = {
                     username: $("#userLogIn").val(),
@@ -27,9 +27,10 @@
                 };
 
                 var URL = "dsaApp/userBBDD/login/"+username+"/"+password;
+
                 $.post({
                     url: URL,
-                    data: JSON.stringify(username, password),
+                    data: JSON.stringify(userData),
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
@@ -42,7 +43,8 @@
 
                          */
                         localStorage.setItem("username", data.username);
-                        alert("Login correcte, amb user: "+ data.username);
+                        localStorage.setItem("password", data.password)
+                        alert("Login correcte, amb user: "+ data.username + "amb pass: "+data.password);
                         perfil();
                     })
                     .fail(function (xhr, err) {
@@ -68,7 +70,7 @@
                 var username = $("#usernameRegister").val();
                 var password =$("#passwRegister").val();
 
-                alert("dades: name: " +name+", surname: "+surname+", username: "+username+", password: "+password);
+                //alert("dades: name: " +name+", surname: "+surname+", username: "+username+", password: "+password);
 
                 var URL = "dsaApp/userBBDD/reg2/"+name+"/"+surname+"/"+username+"/"+password;
                 $.get({
