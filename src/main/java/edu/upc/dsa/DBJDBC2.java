@@ -15,9 +15,9 @@ public class DBJDBC2 extends DBJDBC{
         // log.debug
 
         PreparedStatement statement1  =  connection.prepareStatement(theQuery);
-        statement1.setString(1, "Laura");
-        statement1.setString(2, "Esquius");
-        statement1.setString(3, "lidia2");
+        statement1.setString(1, "carla");
+        statement1.setString(2, "ab");
+        statement1.setString(3, "carla3");
         statement1.setString(4, "12345");
         statement1.setInt(5, 50);
         statement1.setInt(6, 45);

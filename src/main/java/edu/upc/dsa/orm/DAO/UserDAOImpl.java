@@ -80,7 +80,7 @@ public class UserDAOImpl implements IUserDAO {
       User user = null;
       try{
           session = FactorySession.openSession();
-          user = (User) session.getbyTwoParameters(User.class, username, "nombre", password, "password");
+          user = (User) session.getbyTwoParameters(User.class, username, "username", password, "password");
           if (user!=null) {
               logger.info(user + " rebut!");
               return user;

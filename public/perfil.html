@@ -12,33 +12,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <script>
-    function infoPersonal(name, surname, username, coins, inventario){
+    function infoPersonal(name, surname, username, coins){
         var contenidor =
             "<p>Nom: "+name+"</p>\n"+
             "<p>Cognom: "+surname+"</p>\n"+
             "<p>Nom usuari: "+username+"</p>\n"+
-            "<p>Coins: "+coins+"</p>\n"+
-            "<p>Inventari: "+inventario+"</p>\n";
-
+            "<p>Coins: "+coins+"</p>\n";
 
         console.log(contenidor);
         return contenidor;
     }
+    function botiga(){
+        window.location.href="botiga.html";
+    }
 
     $(document).ready(function() {
-        var name = localStorage.getItem('name');
+
+        /*var name = localStorage.getItem('name');
         var surname = localStorage.getItem('surname');
         var coins = localStorage.getItem('coins');
         var id = localStorage.getItem('idUser');
-        var username = localStorage.getItem('username')
         var inventario = localStorage.getItem('inventario');
 
-        var url = "dsaApp/user/getUser/"+username;
+         */
+        var username = localStorage.getItem('username')
+        alert("user: "+username);
+
+        var URL = "dsaApp/userBBDD/getUser/"+username;
+        $.get({
+            url: URL,
+            data: JSON.stringify(username),
+            contentType: 'application/json; charset=utf-8'
+        })
+            .done(function (data, status) {
+                var name = data.name
+                var surname = data.surname;
+                var username = data.username;
+                var coins = data.coins;
+                var contenidor = infoPersonal(name, surname, username, coins);
+                console.log(contenidor);
+                $("#user-info").append(contenidor);
+
+            })
+            .fail(function (xhr, err) {
+                location.reload();
+            })
+
+
+
+        /*var url = "dsaApp/userBBDD/getUser/"+username;
         $.get(url, function (data) {
-            var contenidor = infoPersonal( data.name, data.surname, data.username, data.coins, data.inventario);
+            var name = data.name
+            var surname = data.surname;
+            var username = data.username;
+            var coins = data.coins;
+            var contenidor = infoPersonal(name, surname, username, coins);
             console.log(contenidor);
             $("#user-info").append(contenidor);
         });
+
+         */
 
 
         // Agrega aquí tu código para manejar el formulario de cambio de contraseña
@@ -95,7 +128,8 @@
                 </div>
             </div>
         </div>
-    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="Botiga">Botiga</button>
+    <button onclick="botiga()" id="buttonLogIn" class="btn btn-dark" >Botiga</button>
+
 
 </div>
 </body>

@@ -16,6 +16,7 @@
             function perfil(){
                 window.location.href="perfil.html";
             }
+
             $('#buttonLogIn').click(function() {
                 var username = $('#userLogIn').val();
                 var password = $('#passwLogIn').val();
@@ -25,19 +26,23 @@
                     password: $("#passwLogIn").val()
                 };
 
-                var URL = "dsaApp/user/login";
+                var URL = "dsaApp/userBBDD/login/"+username+"/"+password;
                 $.post({
                     url: URL,
-                    data: JSON.stringify(userData),
+                    data: JSON.stringify(username, password),
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
-                        localStorage.setItem("name",data.name);
+                        /*localStorage.setItem("name",data.name);
                         localStorage.setItem("username", data.username);
                         localStorage.setItem("surname", data.surname);
                         localStorage.setItem("coins", data.coins);
                         localStorage.setItem("inventario", data.inventario);
-                        alert("Login correcte");
+                        localStorage.setItem("username", data.username);
+
+                         */
+                        localStorage.setItem("username", data.username);
+                        alert("Login correcte, amb user: "+ data.username);
                         perfil();
                     })
                     .fail(function (xhr, err) {
@@ -46,8 +51,9 @@
                     })
             })
 
-            $('#buttonGuardar').click(function() {
-                var userData = {
+            $('#btnGuardar').click(function() {
+
+                /*var userData = {
                     name: $("#nameRegisterRegister").val(),
                     surname: $("#surnameRegister").val(),
                     username: $("#usernameRegister").val(),
@@ -55,17 +61,26 @@
 
                 }
 
-                var URL = "dsaApp/user/register";
-                $.post({
+                 */
+
+                var name = $("#nameRegister").val();
+                var surname = $("#surnameRegister").val();
+                var username = $("#usernameRegister").val();
+                var password =$("#passwRegister").val();
+
+                alert("dades: name: " +name+", surname: "+surname+", username: "+username+", password: "+password);
+
+                var URL = "dsaApp/userBBDD/reg2/"+name+"/"+surname+"/"+username+"/"+password;
+                $.get({
                     url: URL,
-                    data: JSON.stringify(userData),
+                    data: JSON.stringify(name, surname, username, password),
                     contentType: 'application/json; charset=utf-8'
                 })
                     .done(function (data, status) {
                         alert("Registre correcte!" );
                     })
                     .fail(function (xhr, err) {
-                        alert("No s'ha pogut registrar, ja existeix un usuari amb aquest username :(");
+                        alert("No s'ha pogut registrar :(");
                         location.reload();
                     })
             })});
@@ -102,7 +117,7 @@
                             <p>Apellido: <input type="text" id="surnameRegister"></p>
                             <p>Nombre de usuario: <input type="text" id="usernameRegister"></p>
                             <p>Contrasenya: <input type="password" id="passwRegister"></p>
-                            <button id="buttonGuardar" class="btn btn-light" data-dismiss="modal">Guardar</button>
+                            <button id="btnGuardar" type="button" class="btn btn-light" data-dismiss="modal">Guardar</button>
 
                         </div>
                     </div>

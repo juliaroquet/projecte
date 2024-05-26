@@ -1,7 +1,7 @@
 package edu.upc.dsa.models;
 
 public class Register {
-    int idUser;
+
     String name;
     String surname;
     String username;
@@ -9,9 +9,8 @@ public class Register {
     public Register(){
 
     }
-    public Register(int idUser, String name, String surname, String username, String password){
+    public Register(String name, String surname, String username, String password){
         this.name = name;
-        this.idUser = idUser;
         this.surname = surname;
         this.username = username;
         this.password = password;
@@ -49,11 +48,5 @@ public class Register {
         this.password = password;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 }
