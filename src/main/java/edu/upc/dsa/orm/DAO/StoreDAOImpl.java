@@ -25,12 +25,12 @@ public class StoreDAOImpl implements StoreDAO {
     }
 
     @Override
-    public Product getProduct(int id) {
+    public Product getProduct(int idProduct) {
         Session session = null;
         try{
             session = FactorySession.openSession();
-            Product product = (Product) session.get(Product.class, "idProduct", id);
-            logger.info("getPoduct("+id+"): "+product);
+            Product product = (Product) session.get(Product.class, "idProduct", idProduct);
+            logger.info("getPoduct("+idProduct+"): "+product);
             return product;
         }
         catch(Exception e) {
