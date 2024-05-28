@@ -13,7 +13,7 @@
     <script>
         $(document).ready(function(){
             function getProducts(){
-                $.get("http://localhost:8080/dsaApp/storeBBDD/getProducts", function(data, status) {
+                $.get("dsaApp/storeBBDD/getProducts", function(data, status) {
                     $("#ProductesBotiga").empty();
                     data.forEach(function (item) {
                         var card = $("<div>").addClass("col-md-4");
