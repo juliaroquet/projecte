@@ -64,7 +64,8 @@ public class StoreService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addProduct(Product product) throws ProductYaExiste {
 
-        if (product.getName() == null || product.getDescription() == null  || product.getPrice() == 0 || product.getIdProduct()== null || product.getImatge()==null)  return Response.status(500).entity(product).build();
+        if (product.getName() == null || product.getDescription() == null  || product.getPrice() == 0 || product.getIdProduct()== null || product.getImatge()==null)
+            return Response.status(500).entity(product).build();
         this.sm.addProduct(product.getIdProduct(), product.getName(), product.getDescription(), product.getPrice(), product.getImatge());
         return Response.status(201).entity(product).build();
     }

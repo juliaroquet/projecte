@@ -107,15 +107,40 @@
             botiga();
         });
 
+        $('#home').click(function() {
+            location.href = "/index.html"
+        });
+
+        $('#Store').click(function() {
+            location.href = "/botiga.html"
+        });
+
     });
 
 </script>
 
+<style>
+    body {
+        background-color: #b4e3a2;
+    }
+
+</style>
+
 
 <body>
-<div class="jumbotron bg-dark text-center">
-    <h1 style="color:#ffffff">Perfil del jugador</h1>
-</div>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" id="home">Home</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="#" id="Store">Store</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#"id="miPerfil">Mi Perfil</a>
+        </li>
+    </ul>
+</nav>
 <div class="jumbotron bg-light">
     <h3>Dades usuari</h3>
     <div id="user-info">

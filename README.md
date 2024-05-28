@@ -60,6 +60,7 @@ StoreDAOService:
 Funcions BBDD Store:
 - changePassword --> no funciona, cal revisar funció UPDATE
 
+ 
 -----------------------28/05/2024------------------------------------
 
 - WEB: Botiga actualitzada, falta mirar fotos producte
