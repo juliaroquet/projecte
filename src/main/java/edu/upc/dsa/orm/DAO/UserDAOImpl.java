@@ -113,29 +113,76 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
+    public User getUserbyID(int idUser) {
+        Session session = null;
+
+        try {
+            session = FactorySession.openSession();
+            User user = (User) session.get(User.class, "idUser", idUser);
+            logger.info("getUser(" + idUser + "): " + user);
+            return user;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        logger.info("not found " + idUser);
+        return null;
+    }
+
+    @Override
+    public double getCoins(int idUser) {
+        User user = getUserbyID(idUser);
+        double coins = user.getCoins();
+        return coins;
+    }
+
+    @Override
+    public void setCoins(int idUser, double coins) {
+        User user = getUserbyID(idUser);
+        user.setCoins(coins);
+        String mycoins = String.valueOf(coins);
+        String myidUser = String.valueOf(idUser);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.updatebyTwoParameter(User.class, mycoins, "coins", myidUser, "idUser");
+            logger.info("coins set");
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+    @Override
     public List<Product> getuserInventario(String username) throws UserNotRegisteredException {
         return null;
     }
 
     @Override
     public User changePassword(String username, String oldPassword, String newPassword) throws PasswordIncorrecteException, UserNotRegisteredException {
-        Session session = null;
-        User user = null;
-        try{
-            session = FactorySession.openSession();
-            user = (User) session.update(Inventario.class, username);
-            if (user!=null) {
-                logger.info(user + " rebut!");
-                return user;
+        String password = newPassword;
+        User user = getUser(username);
+        if(user.getPassword().equals(oldPassword)){
+            Session session = null;
+            try {
+                session = FactorySession.openSession();
+                session.updatebyTwoParameter(User.class,password,"password", username,"username");
+                User user1 = getUser(username);
+                return user1;
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                session.close();
             }
         }
-        catch (Exception e) {
-            logger.warn("not found "+ user);
-            e.printStackTrace();
-        }
-        finally {
-            session.close();
-        }
+
         return null;
     }
 

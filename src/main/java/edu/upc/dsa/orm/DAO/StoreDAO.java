@@ -9,5 +9,6 @@ public interface StoreDAO {
     public Product getProduct(int idProduct);
     public List<Product> getAllProducts();
     public Inventario buyProduct(Inventario inventario);
+    public double getPrice(int idProduct);
 
 }

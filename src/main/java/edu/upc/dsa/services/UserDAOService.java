@@ -115,5 +115,22 @@ public class UserDAOService {
         GenericEntity<List<User>> entity = new GenericEntity<List<User>>(lu) {};
         return Response.status(201).entity(entity).build()  ;
     }
+    @PUT
+    @ApiOperation(value = "update pasword", notes= "update a password from a user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfull"),
+            @ApiResponse(code = 404, message = "user not found")
+    })
+    @Path("/changePassword")
+    public Response changePassword(@QueryParam("username") String username, @QueryParam("currentPassword") String currentPassword, @QueryParam("newPassword") String newPassword) throws UserNotRegisteredException, PasswordIncorrecteException {
+        String password = newPassword;
+        User user = this.um.changePassword(username, currentPassword, newPassword);
+        if(user != null)
+            return Response.status(201).entity(user).build();
+        else
+            return Response.status(404).build();
+
+
+    }
 
 }

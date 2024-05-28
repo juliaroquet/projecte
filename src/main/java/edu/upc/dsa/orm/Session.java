@@ -15,6 +15,6 @@ public interface Session<E> {
     void delete(Object object);                                         // cruD
     List<Object> findAll(Class theClass);
     Object getbyTwoParameters(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue);// cR
-    Object update(Object entity, String row);
+    void updatebyTwoParameter(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue);
     List<Object> query(String query, Class theClass, HashMap params);
 }

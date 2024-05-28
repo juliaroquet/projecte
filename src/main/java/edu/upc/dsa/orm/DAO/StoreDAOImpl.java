@@ -2,6 +2,7 @@ package edu.upc.dsa.orm.DAO;
 
 import edu.upc.dsa.models.Inventario;
 import edu.upc.dsa.models.Product;
+import edu.upc.dsa.models.User;
 import edu.upc.dsa.orm.FactorySession;
 import edu.upc.dsa.orm.Session;
 import org.apache.log4j.Logger;
@@ -61,18 +62,37 @@ public class StoreDAOImpl implements StoreDAO {
     public Inventario buyProduct(Inventario inventario) {
         Inventario i = new Inventario(inventario.getIdUser(), inventario.getIdProduct(), inventario.getQuantity());
         Session session = null;
-        try {
-            session = FactorySession.openSession();
-            session.save(i);
-            logger.info("usuari afegit");
-            return i;
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            session.close();
+        //Mirem si el usuari por comprar o no els productes
+        User user = UserDAOImpl.getInstance().getUserbyID(i.getIdUser());
+        Product product = getProduct(i.getIdProduct());
+        int quantity = inventario.getQuantity();
+        double price = getPrice(i.getIdProduct());
+        double coins = user.getCoins();
+        double coinsTotal = coins - (price*quantity);
+
+        if(coinsTotal >= 0){
+            try {
+                session = FactorySession.openSession();
+                session.save(i);
+                logger.info("Producte afegit al inventari");
+                //Fem la funcio per restar les coins al ususari
+                UserDAOImpl.getInstance().setCoins(user.getIdUser(), coinsTotal);
+                return i;
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                session.close();
+            }
         }
         return null;
+    }
+
+    @Override
+    public double getPrice(int idProduct) {
+        Product product = getProduct(idProduct);
+        double price = product.getPrice();
+        return price;
     }
 }

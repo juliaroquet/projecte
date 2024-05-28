@@ -80,26 +80,40 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public Object update(Object entity, String row) {
-        String updateQuery = QueryHelper.createQueryUPDATE(entity,row);
-
+    public void updatebyTwoParameter(Class theClass, String byFirstParameter, Object byFirstParameterValue, String bySecondParameter, Object bySecondParameterValue) {
+        String updateQuery = QueryHelper.createQueryUPDATEbyTwoParameters(theClass, (String) byFirstParameterValue, (String) bySecondParameterValue);
         PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+
         try {
+            Object object = theClass.getDeclaredConstructor().newInstance();
             pstm = conn.prepareStatement(updateQuery);
-            pstm.setObject(1, 0);
-            int i = 1;
-
-            for (String field: ObjectHelper.getFields(entity)) {
-                pstm.setObject(i++, ObjectHelper.getter(entity, field));
-            }
-
-            pstm.executeQuery();
-            
-
+            // Set the value for the field to update
+            pstm.setObject(1, byFirstParameter);
+            // Set the username of the object (assuming the username is the second field)
+            pstm.setObject(2, bySecondParameter);
+            // Execute the update query
+            pstm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return null;
     }
 
 

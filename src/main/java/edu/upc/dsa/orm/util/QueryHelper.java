@@ -11,8 +11,7 @@ public class QueryHelper {
 
         String [] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
 
-        //idUser primary key, I think we should change it to username, but then when we need to do
-        //an instert for the inventori the primary key should also be the idUser
+        //idUser primary key
         sb.append("idUser");
         for (String field: fields) {
             if (!field.equals("idUser")) sb.append(", ").append(field);
@@ -54,23 +53,12 @@ public class QueryHelper {
 
         return sb.toString();
     }
-    public static String createQueryUPDATE(Object entity, String row) {
+    public static String createQueryUPDATEbyTwoParameters(Class theClass, String byFirstParameter, String bySecondParameter) {
+
         StringBuffer sb = new StringBuffer("UPDATE ");
-        sb.append(entity.getClass().getSimpleName()).append(" SET ");
-
-        String[] fields = edu.upc.dsa.orm.util.ObjectHelper.getFields(entity);
-
-        boolean firstField = true;
-        for (String field: fields) {
-            if (!field.equals(row)) {
-                if (!firstField) {
-                    sb.append(", ");
-                }
-                sb.append(field).append(" = ?");
-                firstField = false;
-            }
-        }
-        sb.append(" WHERE ").append(row).append(" = ?");
+        sb.append(theClass.getSimpleName());
+        sb.append(" SET " + byFirstParameter + " = ?");
+        sb.append(" WHERE " + bySecondParameter + " = ?");
 
         return sb.toString();
     }
