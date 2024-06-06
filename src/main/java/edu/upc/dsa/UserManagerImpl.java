@@ -4,6 +4,7 @@ import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.Product;
+import edu.upc.dsa.models.Report;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
 
@@ -15,11 +16,13 @@ public class UserManagerImpl implements UserManager{
     private static UserManager instance;
     private HashMap<String, User> MapUsers;
     public List<User> listusers;
+    public List<Report> listreports;
     //private HashMap<String, Product> inventario;
     final static Logger logger = Logger.getLogger(UserManagerImpl.class);
     UserManagerImpl(){
         this.listusers = new ArrayList<>();
         this.MapUsers = new HashMap<>();
+        this.listreports = new ArrayList<>();
     }
     public static UserManager getInstance(){
         if (instance==null) instance = new UserManagerImpl();
@@ -122,6 +125,35 @@ public class UserManagerImpl implements UserManager{
             throw new PasswordIncorrecteException();
         }
         throw new UserNotRegisteredException();
+    }
+
+    @Override
+    public Report addReport(Report report) {
+        logger.info("Report: Date: " + report.getDate() + " Informer: " + report.getInformer() + "Message: " + report.getMessage());
+        listreports.add(report);
+        return report;
+    }
+
+    @Override
+    public Report getReportbyDate(String date) {
+        logger.info("getReportbyDate("+date+")");
+        for (Report r: this.listreports) {
+            if (r.getDate().equals(date)) {
+                return r;
+            }
+        }
+        logger.warn("Report not found with date: " + date);
+        return null;
+    }
+
+    @Override
+    public List<Report> getAllReports() {
+        return listreports;
+    }
+
+    @Override
+    public Report deleteReport(String username) {
+        return null;
     }
 
 

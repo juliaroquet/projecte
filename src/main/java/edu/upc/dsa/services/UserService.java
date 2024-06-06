@@ -7,6 +7,7 @@ import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.Credencials;
 import edu.upc.dsa.models.Product;
+import edu.upc.dsa.models.Report;
 import edu.upc.dsa.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -159,7 +160,35 @@ import java.util.List;
             } catch (UserNameYaExiste e) {
                 return Response.status(501).entity(e.getMessage()).build();
             }
+        }
+        @POST
+        @ApiOperation(value = "Report an abuse", notes = "Add a new abuse report")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful"),
+                @ApiResponse(code = 401, message = "Error")
 
+        })
+        @Path("/report/add")
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response addReport(Report report) {
+            Report abuse = this.um.addReport(report);
+            if(abuse!= null) return Response.status(201).entity(abuse).build();
+            else return Response.status(404).build();
+        }
+        @GET
+        @ApiOperation(value = "get reports", notes = "Show a list of reports")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful", response = Report.class, responseContainer="List"),
+        })
+        @Path("/getReports")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response getAllReports() {
+
+            List<Report> lr = this.um.getAllReports();
+            GenericEntity<List<Report>> entity = new GenericEntity<List<Report>>(lr) {};
+            if (entity == null) return Response.status(404).build();
+            return Response.status(201).entity(entity).build() ;
 
         }
     }

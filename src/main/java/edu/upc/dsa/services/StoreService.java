@@ -27,8 +27,10 @@ public class StoreService {
         this.sm = StoreManagerImpl.getInstance();
         this.um = UserManagerImpl.getInstance();
         if(sm.getProducts().size()==0){
-            sm.addProduct("1","Martillo","Tool to save the alien",15, "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/25/Mjolnir.png");
-            sm.addProduct("2","Pico","Tool to save the alien",20, "https://cdn-icons-png.flaticon.com/512/4813/4813227.png");
+            sm.addProduct("1","Martillo","Tool to save the alien",15, "https://cdn-icons-png.flaticon.com/512/5414/5414745.png");
+            sm.addProduct("2","Pico","Tool to save the alien",20, "https://cdn-icons-png.flaticon.com/512/664/664112.png");
+            sm.addProduct("3","Pistola Laser","Tool to save the alien",70, "https://cdn-icons-png.flaticon.com/512/2949/2949166.png");
+            sm.addProduct("4","Espada","Tool to save the alien",50, "https://cdn-icons-png.flaticon.com/512/3275/3275467.png");
             um.registerUser(new User(1,"Laura", "Fernandez", "lauraa8", "12345"));
             um.registerUser(new User(2,"Anna", "Fernandez", "annaa11", "56789"));
         }
