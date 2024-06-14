@@ -5,10 +5,7 @@ import edu.upc.dsa.UserManagerImpl;
 import edu.upc.dsa.exceptions.PasswordIncorrecteException;
 import edu.upc.dsa.exceptions.UserNameYaExiste;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
-import edu.upc.dsa.models.Credencials;
-import edu.upc.dsa.models.Product;
-import edu.upc.dsa.models.Report;
-import edu.upc.dsa.models.User;
+import edu.upc.dsa.models.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -186,9 +183,26 @@ import java.util.List;
         public Response getAllReports() {
 
             List<Report> lr = this.um.getAllReports();
-            GenericEntity<List<Report>> entity = new GenericEntity<List<Report>>(lr) {};
+            GenericEntity<List<Report>> entity = new GenericEntity<List<Report>>(lr) {
+            };
             if (entity == null) return Response.status(404).build();
-            return Response.status(201).entity(entity).build() ;
+            return Response.status(201).entity(entity).build();
+        }
+
+
+        @Path("/pregunta")
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response addQuestion(Pregunta pregunta) {
+            if (pregunta == null || pregunta.getDate() == null || pregunta.getTitle() == null ||
+                    pregunta.getMessage() == null || pregunta.getSender() == null) {
+                return Response.status(400).entity("Missing parameters").build();
+            }
+
+            // Lógica para guardar la pregunta, si es necesario
+
+            return Response.status(201).entity(pregunta).build();
+        }
 
         }
-    }
+    
