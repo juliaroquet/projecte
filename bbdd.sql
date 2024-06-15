@@ -15,7 +15,7 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 UNLOCK TABLES;
 
 CREATE TABLE IF NOT EXISTS `product` (
-  `idProduct` int(11) DEFAULT NULL PRIMARY KEY,
+  `idProduct` int(11) NOT NULL PRIMARY KEY,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
