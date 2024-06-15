@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `quantity` int(11) DEFAULT NULL
 );
 
-LOCK TABLES `inventario` WRITE;
+/*LOCK TABLES `inventario` WRITE;*/
 INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 	(1, 1, 3),
 	(1, 1, 1),
@@ -12,7 +12,7 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 	(4, 1, 1),
 	(4, 1, 1),
 	(4, 1, 1);
-UNLOCK TABLES;
+/*UNLOCK TABLES;*/
 
 CREATE TABLE IF NOT EXISTS `product` (
   `idProduct` int(11) NOT NULL PRIMARY KEY,
