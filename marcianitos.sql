@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `idUser` int(11) DEFAULT NULL,
   `idProduct` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) /*ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;*/
 
 -- Volcando datos para la tabla marcianitosdb.inventario: ~6 rows (aproximadamente)
 INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `imatge` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) /*ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;*/
 
 -- Volcando datos para la tabla marcianitosdb.product: ~2 rows (aproximadamente)
 INSERT INTO `product` (`idProduct`, `name`, `description`, `price`, `imatge`) VALUES
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `food` int(11) DEFAULT NULL,
 
   /*UNIQUE KEY `username` (`username`)*/
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci /*ROW_FORMAT=DYNAMIC*/;
+) /*ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC*/;
 
 -- Volcando datos para la tabla marcianitosdb.user: ~10 rows (aproximadamente)
 INSERT INTO `user` (`idUser`, `name`, `surname`, `username`, `password`, `coins`, `fuel`, `food`) VALUES
