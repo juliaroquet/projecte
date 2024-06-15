@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `marcianitosdb` 
-USE `marcianitosdb`;
+CREATE DATABASE IF NOT EXISTS `bbdd` 
+USE `bbdd`;
 
 CREATE TABLE IF NOT EXISTS `inventario` (
   `idUser` int(11) DEFAULT NULL,
