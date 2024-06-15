@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `idUser` int(11) DEFAULT NULL,
   `idProduct` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
-) /*ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;*/
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.inventario: ~6 rows (aproximadamente)
 INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
@@ -37,17 +37,19 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 
 -- Volcando estructura para tabla marcianitosdb.product
 CREATE TABLE IF NOT EXISTS `product` (
-  `idProduct` int(11) DEFAULT NULL,
+  `idProduct` int(11) DEFAULT NULL PRIMARY KEY,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `imatge` varchar(200) DEFAULT NULL
-) /*ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;*/
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.product: ~2 rows (aproximadamente)
 INSERT INTO `product` (`idProduct`, `name`, `description`, `price`, `imatge`) VALUES
-	(1, 'Martillo\r\n', 'Tool', 50, 'https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/25/Mjolnir.png'),
-	(2, 'Pico', 'Tool', 70, 'https://cdn-icons-png.flaticon.com/512/4813/4813227.png');
+	(1, 'Martillo\r\n', 'Tool', 50, 'https://cdn-icons-png.flaticon.com/512/5414/5414745.png'),
+	(2, 'Pico', 'Tool', 70, 'https://cdn-icons-png.flaticon.com/512/664/664112.png'),
+	(3, 'Pistola Laser','Tool to save the alien',70, 'https://cdn-icons-png.flaticon.com/512/2949/2949166.png'),
+	(4, 'Espada','Tool to save the alien',50, 'https://cdn-icons-png.flaticon.com/512/3275/3275467.png');
 
 -- Volcando estructura para tabla marcianitosdb.user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -60,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `fuel` int(11) DEFAULT NULL,
   `food` int(11) DEFAULT NULL,
 
-  /*UNIQUE KEY `username` (`username`)*/
-) /*ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC*/;
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.user: ~10 rows (aproximadamente)
 INSERT INTO `user` (`idUser`, `name`, `surname`, `username`, `password`, `coins`, `fuel`, `food`) VALUES
