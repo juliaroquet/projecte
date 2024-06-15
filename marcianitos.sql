@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `food` int(11) DEFAULT NULL,
 
   /*UNIQUE KEY `username` (`username`)*/
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci /*ROW_FORMAT=DYNAMIC*/;
 
 -- Volcando datos para la tabla marcianitosdb.user: ~10 rows (aproximadamente)
 INSERT INTO `user` (`idUser`, `name`, `surname`, `username`, `password`, `coins`, `fuel`, `food`) VALUES
