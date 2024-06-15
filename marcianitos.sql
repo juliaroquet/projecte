@@ -37,12 +37,12 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 
 -- Volcando estructura para tabla marcianitosdb.product
 CREATE TABLE IF NOT EXISTS `product` (
-  `idProduct` int(11) NOT NULL,
+  `idProduct` int(11) NOT NULL PRIMARY KEY,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `imatge` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`idProduct`)
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.product: ~2 rows (aproximadamente)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `fuel` int(11) DEFAULT NULL,
   `food` int(11) DEFAULT NULL,
 
-  UNIQUE KEY `username` (`username`)
+  /*UNIQUE KEY `username` (`username`)*/
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.user: ~10 rows (aproximadamente)
