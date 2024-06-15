@@ -51,7 +51,7 @@ INSERT INTO `product` (`idProduct`, `name`, `description`, `price`, `imatge`) VA
 
 -- Volcando estructura para tabla marcianitosdb.user
 CREATE TABLE IF NOT EXISTS `user` (
-  `idUser` int(10) NOT NULL AUTO_INCREMENT,
+  `idUser` int(10) AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `coins` double DEFAULT NULL,
   `fuel` int(11) DEFAULT NULL,
   `food` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idUser`),
+
   /*UNIQUE KEY `username` (`username`)*/
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
