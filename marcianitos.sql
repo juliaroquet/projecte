@@ -37,11 +37,12 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 
 -- Volcando estructura para tabla marcianitosdb.product
 CREATE TABLE IF NOT EXISTS `product` (
-  `idProduct` int(11) DEFAULT NULL PRIMARY KEY,
+  `idProduct` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
-  `imatge` varchar(200) DEFAULT NULL
+  `imatge` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idProduct`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.product: ~2 rows (aproximadamente)
