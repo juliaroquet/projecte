@@ -190,7 +190,7 @@ import java.util.List;
         }
 
 
-        @Path("/pregunta")
+       /* @Path("/pregunta")
         @Consumes(MediaType.APPLICATION_JSON)
         @Produces(MediaType.APPLICATION_JSON)
         public Response addQuestion(Pregunta pregunta) {
@@ -203,6 +203,8 @@ import java.util.List;
 
             return Response.status(201).entity(pregunta).build();
         }
+        
+        */
 
         }
     
