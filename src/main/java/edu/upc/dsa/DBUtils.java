@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class DBUtils {
 
 
-    public static final String DB_NAME = "MarcianitosDB";
+    public static final String DB_NAME = "marcianitosdb";
     public static final String DB_HOST = "127.0.0.1";
     public static final String DB_USER = "root";
-    public static final String DB_PASS = "12345";
+    public static final String DB_PASS = "Mazinger72";
     public static final String DB_PORT = "3306";
 
     public static String getDb() {

@@ -30,6 +30,10 @@ import java.util.List;
                 um.registerUser(new User(2,"Anna","Fernandez","annaa11","56789"));
                 um.registerUser(new User(3,"Lidon","Garcia","lidon11","56789"));
                 um.registerUser(new User(4,"Lidia","Esquius","lidia22","12345"));
+                um.addFAQ(new FAQ("¿Cómo cambiar mi contraseña?", "En la pagina de mi perfil, aparece la ocion de cambiar contraseña."));
+                um.addFAQ(new FAQ("¿Quieres reportar un problema?", "Hazlo haciendolo con el boton de report"));
+                um.addFAQ(new FAQ("¿Cómo subo de nivel?", "Tienes que pasar la puerta"));
+
             }
 
         }
@@ -189,22 +193,18 @@ import java.util.List;
             return Response.status(201).entity(entity).build();
         }
 
-
-       /* @Path("/pregunta")
-        @Consumes(MediaType.APPLICATION_JSON)
+        @GET
+        @ApiOperation(value = "Obtain the FAQs", notes = "View FAQs")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Successful", response = FAQ.class, responseContainer = "List"),
+        })
+        @Path("/faqs")
         @Produces(MediaType.APPLICATION_JSON)
-        public Response addQuestion(Pregunta pregunta) {
-            if (pregunta == null || pregunta.getDate() == null || pregunta.getTitle() == null ||
-                    pregunta.getMessage() == null || pregunta.getSender() == null) {
-                return Response.status(400).entity("Missing parameters").build();
-            }
-
-            // Lógica para guardar la pregunta, si es necesario
-
-            return Response.status(201).entity(pregunta).build();
+        public Response getFAQs() {
+            List<FAQ> faqs = this.um.getFAQs();
+            GenericEntity<List<FAQ>> entity = new GenericEntity<List<FAQ>>(faqs) {};
+            return Response.status(201).entity(entity).build();
         }
-
-        */
 
         }
     
