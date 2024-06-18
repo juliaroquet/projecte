@@ -16,18 +16,20 @@
 
 
 -- Volcando estructura de base de datos para marcianitosdb
+DROP DATABASE IF EXISTS `marcianitosdb`;
 CREATE DATABASE IF NOT EXISTS `marcianitosdb` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
 USE `marcianitosdb`;
 
 -- Volcando estructura para tabla marcianitosdb.inventario
-CREATE TABLE IF NOT EXISTS `inventario` (
+DROP TABLE IF EXISTS `inventario`;
+CREATE TABLE IF NOT EXISTS `Inventario` (
   `idUser` int(11) DEFAULT NULL,
   `idProduct` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Volcando datos para la tabla marcianitosdb.inventario: ~6 rows (aproximadamente)
-INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
+INSERT INTO `Inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 	(1, 1, 3),
 	(1, 1, 1),
 	(4, 1, 1),
@@ -36,25 +38,27 @@ INSERT INTO `inventario` (`idUser`, `idProduct`, `quantity`) VALUES
 	(4, 1, 1);
 
 -- Volcando estructura para tabla marcianitosdb.product
-CREATE TABLE IF NOT EXISTS `product` (
-  `idProduct` int(11) NOT NULL PRIMARY KEY,
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `Product` (
+  `idProduct` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `imatge` varchar(200) DEFAULT NULL,
-  
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`idProduct`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Volcando datos para la tabla marcianitosdb.product: ~2 rows (aproximadamente)
-INSERT INTO `product` (`idProduct`, `name`, `description`, `price`, `imatge`) VALUES
+-- Volcando datos para la tabla marcianitosdb.product: ~4 rows (aproximadamente)
+INSERT INTO `Product` (`idProduct`, `name`, `description`, `price`, `imatge`) VALUES
 	(1, 'Martillo\r\n', 'Tool', 50, 'https://cdn-icons-png.flaticon.com/512/5414/5414745.png'),
 	(2, 'Pico', 'Tool', 70, 'https://cdn-icons-png.flaticon.com/512/664/664112.png'),
-	(3, 'Pistola Laser','Tool to save the alien',70, 'https://cdn-icons-png.flaticon.com/512/2949/2949166.png'),
-	(4, 'Espada','Tool to save the alien',50, 'https://cdn-icons-png.flaticon.com/512/3275/3275467.png');
+	(3, 'Pistola Laser', 'Tool', 70, 'https://cdn-icons-png.flaticon.com/512/2949/2949166.png'),
+	(4, 'Espada', 'Tool', 50, 'https://cdn-icons-png.flaticon.com/512/3275/3275467.png');
 
 -- Volcando estructura para tabla marcianitosdb.user
-CREATE TABLE IF NOT EXISTS `user` (
-  `idUser` int(10) AUTO_INCREMENT PRIMARY KEY,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `User` (
+  `idUser` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
@@ -62,12 +66,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `coins` double DEFAULT NULL,
   `fuel` int(11) DEFAULT NULL,
   `food` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idUser`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
-  /*UNIQUE KEY `username` (`username`)*/
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Volcando datos para la tabla marcianitosdb.user: ~10 rows (aproximadamente)
-INSERT INTO `user` (`idUser`, `name`, `surname`, `username`, `password`, `coins`, `fuel`, `food`) VALUES
+-- Volcando datos para la tabla marcianitosdb.user: ~9 rows (aproximadamente)
+INSERT INTO `User` (`idUser`, `name`, `surname`, `username`, `password`, `coins`, `fuel`, `food`) VALUES
 	(1, 'Laura', 'Esquius', 'lidia2', '12345', 50, 45, 17),
 	(2, 'carla', 'ab', 'carla3', '12345', 50, 45, 17),
 	(3, 'Carla', 'Abascal', 'carla11', '12345', 100, 0, 0),
