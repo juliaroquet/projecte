@@ -22,7 +22,6 @@
                         var cardBody = $("<div>").addClass("card-body");
                         var cardTitle = $("<h4>").addClass("card-title").text(item.name);
                         var cardText = $("<p>").addClass("card-text").html(
-                            "<b>ID: </b>" + item.idProduct + "<br>" +
                             "<b>Descripció: </b>" + item.description + "<br>" +
                             "<b>Preu: </b>" + item.price
                         );
@@ -38,56 +37,8 @@
                 });
             }
             getProducts();
-
-            /*$('#buttonMostrar').click(function() {
-                getProducts();
-            });
-
-            $('#buttonGuardar').click(function () {
-                var productData = {
-                    idProduct: $('#idProduct').val(),
-                    name: $('#nameProduct').val(),
-                    description: $('#descriptionProduct').val(),
-                    price: $('#priceProduct').val(),
-                    imatge: $('#imatgeProduct').val()
-                };
-
-                var URL = "http://localhost:8080/dsaApp/store/addProduct";
-                $.post({
-                    url: URL,
-                    data: JSON.stringify(productData),
-                    contentType: 'application/json; charset=utf-8'
-                })
-                    .done(function (data, status) {
-                        alert("Producte afegit correctament");
-                        getProducts();
-                    })
-                    .fail(function (xhr, err) {
-                        alert("El producte ja existeix");
-                        location.reload();
-                    });
-            });
-
-            $('#buttonDelete').click(function () {
-                var idProduct = $('#idProductDel').val();
-                var URL = "http://localhost:8080/dsaApp/store/deleteProduct/" + idProduct;
-                $.ajax({
-                    type: "DELETE",
-                    url: URL,
-                })
-                    .done(function (data, status) {
-                        alert("Producte esborrat correctament");
-                        getProducts();
-                    })
-                    .fail(function (xhr, err) {
-                        alert("El producte no existeix");
-                        location.reload();
-                    });
-            });
-
-             */
             $('#home').click(function() {
-                location.href = "/index.html"
+                location.href = "/home.html"
             });
             $('#miPerfil').click(function() {
                 location.href = "/perfil.html"
@@ -106,8 +57,9 @@
             margin: 20px;
         }
         .imagen-redimensionada {
+            align-items: center;
             width: 100%;
-            height: 200px;
+            height: 70%;
             object-fit: cover;
         }
     </style>
@@ -129,49 +81,11 @@
 </nav>
 <div class="container p-3 my-3 bg-light text-dark">
     <div class="">
+        <br>
         <h1>Store</h1>
+        <br>
         <div class="row" id="ProductesBotiga"></div>
     </div>
-
-    <!--<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Afegir Producte</button>
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header">
-                    <h4 class="modal-title">Afegir Producte</h4>
-                    <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Nom: <input type="text" id="nameProduct"></p>
-                    <p>Id: <input type="text" id="idProduct"></p>
-                    <p>Descripció: <input type="text" id="descriptionProduct"></p>
-                    <p>Preu: <input type="text" id="priceProduct"></p>
-                    <p>Imatge: <input type="text" id="imatgeProduct"></p>
-                    <button id="buttonGuardar" class="btn btn-light" data-dismiss="modal">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalDel">Borrar Producte</button>
-    <div class="modal fade" id="myModalDel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header">
-                    <h4 class="modal-title">Borrar Producte</h4>
-                    <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>ID: <input type="text" id="idProductDel"></p>
-                    <button id="buttonDelete" class="btn btn-light" data-dismiss="modal">Borrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button id="buttonMostrar" type="button" class="btn btn-dark">Llista Producte</button>-->
 </div>
 <div class="col-sm-4"></div>
 <p class="mt-5 mb-3 text-muted text-center">&copy; 2024 Grup 2 DSA</p>
-</body>
-</html>
