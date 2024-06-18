@@ -206,5 +206,23 @@ import java.util.List;
             return Response.status(201).entity(entity).build();
         }
 
+        @POST
+        @ApiOperation(value = "Añadir pregunta", notes = "Añadir pregunta")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Pregunta añadida"),
+                @ApiResponse(code = 400, message = "Invalid")
+        })
+        @Path("/question/add")
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response addQuestion(Pregunta pregunta) {
+            if (pregunta != null) {
+                return Response.status(201).entity(pregunta).build();
+            } else {
+                return Response.status(400).entity("Invalid input").build();
+            }
         }
+
+
+    }
     
